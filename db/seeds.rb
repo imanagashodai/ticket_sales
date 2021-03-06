@@ -9,7 +9,7 @@
 require "csv"
 
 User.destroy_all
-User.create(id: 0, name: 管理人, email: "q", password: "q", password_confirmation: "q")
+User.create(id: 0, name: "管理人", email: "q", password: "q", password_confirmation: "q")
 
 Game.destroy_all
 CSV.foreach('db/table_game.csv') do |row|

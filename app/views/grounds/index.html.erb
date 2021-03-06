@@ -1,0 +1,11 @@
+<h1>球場一覧</h1>
+<table>
+  <% Ground.all.each do |ground| %>
+    <tr>
+      <td><%= link_to ground.name, ground_path(ground.id) %></td>
+      <% if session[:user_id] == 0 %>
+        <td><%= link_to "球場名編集", edit_ground_path(ground.id) %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

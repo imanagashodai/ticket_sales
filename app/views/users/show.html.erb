@@ -1,0 +1,14 @@
+<h1>ユーザー情報</h1>
+<table>
+  <tr>
+    <th>名前</th>
+    <th>Eメール</th>
+  </tr>
+  <% user = User.all.find(session[:user_id]) %>
+  <tr>
+    <td><%= user.name %></td>
+    <td><%= user.email %></td>
+    <td><%= button_to "編集", edit_user_path, method: :get %></td>
+    <td><%= button_to "削除", user_path, method: :delete %></td>
+  </tr>
+</table>

@@ -1,0 +1,21 @@
+<h1><%= Ground.find(params[:id]).name %></h1>
+<h2>対戦スケジュール</h2>
+<table>
+  <tr>
+    <th>日程</th>
+    <th>開始時間</th>
+    <th>対戦相手</th>
+    <th>購入画面</th>
+  </tr>
+  
+  <% Game.where(home_id: params[:id]).each do |game| %>
+  <tr>
+    <td><%= game.date %></td>
+    <td><%= game.start %></td>
+    <td><%= Team.all.find(game.visitor_id).name %></td>
+    <td><%= link_to "Go",  purchases_index_path(gameid: game.id) %></td>
+  </tr>
+  <% end %>
+</table>
+<h2>会場</h2>
+<p><%= Ground.all.find(params[:id]).name%></p>

@@ -1,0 +1,2 @@
+class Seatgroup < ApplicationRecord
+end

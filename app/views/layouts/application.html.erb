@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TicketSales</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+
+  <body style="display: flex; flex-flow: column; min-height: 100vh;">
+    <header>
+      <%= render 'layouts/header1' %>
+      <%= render 'layouts/header2' %>
+    </header>
+    
+    <main style="flex: 1;">
+      <%= yield %>
+    </main>
+    
+    <footer>
+      <%= render 'layouts/footer' %>
+    </footer>
+
+  </body>
+  
+    
+  <script>
+    $(function(){
+      $('.hover').hover(function(){
+        $(this).children('ul').show();
+      }, function(){
+        $(this).children('ul').hide();
+      });
+    });
+  </script>
+
+</html>

@@ -8,7 +8,7 @@
 
 require "csv"
 
-Seatgroup.destroy_all
-CSV.foreach('db/table_seatgroup.csv') do |row|
-  Seatgroup.create(id: row[0], name: row[1], ground_id: row[2])
+Team.destroy_all
+CSV.foreach('db/table_team.csv') do |row|
+  Team.create(id: row[0], name: row[1])
 end

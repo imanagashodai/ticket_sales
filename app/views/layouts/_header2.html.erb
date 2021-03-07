@@ -4,7 +4,7 @@
         <li class="hover">
         <%= link_to "チームから", teams_path %>
           <ul class="dropdown">
-            <% Team.all.each do |team| %>
+            <% Team.all.sort.each do |team| %>
               <li><%= link_to team.name, team_path(team.id) %></li>
             <% end %>
           </ul>
@@ -12,7 +12,7 @@
         <li class="hover">
           <%= link_to "球場から", grounds_path %>
             <ul class="dropdown">
-              <% Ground.all.each do |ground| %>
+              <% Ground.all.sort.each do |ground| %>
                 <li><%= link_to ground.name, ground_path(ground.id) %></li>
               <% end %>
             </ul>

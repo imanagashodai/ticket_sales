@@ -1,1 +1,13 @@
-<h1>本日の試合</h1>
+<% time = Time.zone.now %>
+
+<p><%= time %></p>
+<h1>本日(<%= time.month %>月<%= time.day %>日)の試合</h1>
+
+<%= Time.local(12, 44, 23, 22, 5, 2017, 0, 0, false, "JST") %>
+<p><%= Date.today %></p>
+<%= Date.new(2021,3,8) %>
+<%= DateTime.new(2017, 4, 26, 22, 00) %>
+<br>
+<%= "#{Time.new(2017, 4, 26, 22, 00)}" %>
+<br>
+<%= Time.strptime('1991/5/18 4:13:00', '%Y/%m/%d %T') %>

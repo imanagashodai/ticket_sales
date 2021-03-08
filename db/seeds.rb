@@ -13,7 +13,7 @@ User.create(id: 0, name: "管理人", email: "q", password: "q", password_confir
 
 Game.destroy_all
 CSV.foreach('db/table_game.csv') do |row|
-  Game.create(id: row[0], date: row[1], start: row[2], home_id: row[3], visitor_id: row[4], ground_id: row[5])
+  Game.create(id: row[0], date: "#{row[1]}/#{row[2]}/#{row[3]}", time: "#{row[4]}:#{row[5]}:00", homeid: row[6], visitorid: row[7], ground_id: row[8], pricegroup: row[9])
 end
 
 Ground.destroy_all

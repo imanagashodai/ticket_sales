@@ -1,15 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  date: MyString
-  start: MyString
-  home_id: 1
-  visitor_id: 1
+  date: 2021-03-08
+  time: 2021-03-08 10:11:37
+  homeid: 1
+  visitorid: 1
   ground_id: 1
+  pricegroup: 1
 
 two:
-  date: MyString
-  start: MyString
-  home_id: 1
-  visitor_id: 1
+  date: 2021-03-08
+  time: 2021-03-08 10:11:37
+  homeid: 1
+  visitorid: 1
   ground_id: 1
+  pricegroup: 1

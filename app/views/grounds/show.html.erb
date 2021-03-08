@@ -3,16 +3,16 @@
 <table>
   <tr>
     <th>日程</th>
-    <th>開始時間</th>
+    <th>時刻</th>
     <th>対戦相手</th>
     <th>購入画面</th>
   </tr>
   
-  <% Game.where(home_id: params[:id]).each do |game| %>
+  <% Game.where(homeid: params[:id]).each do |game| %>
   <tr>
     <td><%= game.date %></td>
-    <td><%= game.start %></td>
-    <td><%= Team.all.find(game.visitor_id).name %></td>
+    <td><%= game.time.to_s[11,5] %></td>
+    <td><%= Team.all.find(game.visitorid).name %></td>
     <td><%= link_to "Go",  purchases_index_path(gameid: game.id) %></td>
   </tr>
   <% end %>

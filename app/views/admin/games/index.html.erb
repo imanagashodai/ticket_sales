@@ -1,0 +1,19 @@
+<% @games = Game.all %>
+<% @game_columns = @games.column_names %>
+
+<h1>Gamesテーブル</h1>
+<table style="margin-left: 10px;">
+  <tr>
+    <% @game_columns.each do |column| %>
+      <th style="padding-right: 10px;"><%= column %></th>
+    <% end %>
+  </tr>
+  
+  <% @games.each do |game| %>
+    <tr>
+      <% @game_columns.each do |column| %>
+        <td style="padding-right: 10px;"><%= game[column] %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

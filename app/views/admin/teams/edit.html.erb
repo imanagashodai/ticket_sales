@@ -1,0 +1,65 @@
+<% @teams = Team.all %>
+<% @team_columns = @teams.column_names %>
+<% @team = @teams.find(params[:id]) %>
+
+<h1>Teamsテーブル（編集中）</h1>
+
+
+<%= form_with url: admin_team_path, model: @team do |f| %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <% @team_columns.each do |column| %>
+          <th><%= column %></th>
+        <% end %>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @teams.each do |team| %>
+        <% if team == @team %>
+          <tr>
+              <% @team_columns.each do |column| %>
+                <% if column == "name" %>
+                  <td>
+                    <%= f.text_field :name %>
+                  </td>
+                <% else %>
+                  <td>
+                    <%= team[column] %>
+                  </td>
+                <% end %>
+              <% end %>
+              <td><%= f.submit "更新" %></td>
+
+            <td><%= link_to "戻る", admin_teams_path %></td>
+            <td><%= link_to "削除", admin_team_path(key: @team.id), method: :delete %></td>
+          </tr>
+          
+        <% else %>
+          <tr>
+            <% @team_columns.each do |column| %>
+              <td>
+                <%= team[column] %>
+              </td>
+            <% end %>
+            <td>
+              <%= link_to "編集", edit_admin_team_path(team.id) %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+
+  </table>
+<% end %>
+
+<style>
+  th, td {
+    padding-right: 10px;
+  }
+  
+  table {
+    margin-left: 10px;
+  }
+</style>

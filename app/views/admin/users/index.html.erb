@@ -1,0 +1,19 @@
+<% @users = User.all %>
+<% @user_columns = @users.column_names %>
+
+<h1>Usersテーブル</h1>
+<table style="margin-left: 10px;">
+  <tr>
+    <% @user_columns.each do |column| %>
+      <th style="padding-right: 10px;"><%= column %></th>
+    <% end %>
+  </tr>
+  
+  <% @users.each do |user| %>
+    <tr>
+      <% @user_columns.each do |column| %>
+        <td style="padding-right: 10px;"><%= user[column] %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

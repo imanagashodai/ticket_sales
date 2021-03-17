@@ -1,16 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  date: 2021-03-08
-  time: 2021-03-08 10:11:37
+  datetime: 2021-03-09 02:47:31
   homeid: 1
   visitorid: 1
   ground_id: 1
   pricegroup: 1
 
 two:
-  date: 2021-03-08
-  time: 2021-03-08 10:11:37
+  datetime: 2021-03-09 02:47:31
   homeid: 1
   visitorid: 1
   ground_id: 1

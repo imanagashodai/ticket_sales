@@ -1,0 +1,26 @@
+<% @teams = Team.all %>
+<% @team_columns = @teams.column_names %>
+
+<h1>Teamsテーブル</h1>
+<table style="margin-left: 10px;">
+  <thead>
+    <tr>
+      <% @team_columns.each do |column| %>
+        <th style="padding-right: 10px;"><%= column %></th>
+      <% end %>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <% @team_columns.each do |column| %>
+          <td style="padding-right: 10px;"><%= team[column] %></td>
+        <% end %>
+        <td>
+          <%= link_to "編集", edit_admin_team_path(team.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

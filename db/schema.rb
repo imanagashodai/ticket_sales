@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_08_101137) do
+ActiveRecord::Schema.define(version: 2021_03_09_035612) do
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.date "date"
-    t.time "time"
+    t.datetime "datetime"
     t.integer "homeid"
     t.integer "visitorid"
     t.integer "ground_id"
@@ -48,6 +47,7 @@ ActiveRecord::Schema.define(version: 2021_03_08_101137) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin", default: false
   end
 
 end

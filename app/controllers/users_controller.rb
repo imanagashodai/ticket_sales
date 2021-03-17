@@ -4,8 +4,8 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(user_params)
-    if @user.save
+    user = User.new(user_params)
+    if user.save
       redirect_to login_path
     else
       render :new
@@ -31,8 +31,8 @@ class UsersController < ApplicationController
   end
   
   def update
-    @user = User.find(params[:id])
-    if @user.update(user_params)
+    user = User.find(params[:id])
+    if user.update(user_params)
       redirect_to user_path
     else
       render :edit

@@ -9,22 +9,22 @@
 require "csv"
 
 User.destroy_all
-User.create(id: 0, name: "管理人", email: "q", password: "q", password_confirmation: "q")
+User.create(id: 0, name: "管理人", email: "admin@admin.admin", password: "adminadmin1", password_confirmation: "adminadmin1" , admin: true)
 
-Game.destroy_all
-CSV.foreach('db/table_game.csv') do |row|
-  Game.create(id: row[0], date: "#{row[1]}/#{row[2]}/#{row[3]}", time: "#{row[4]}:#{row[5]}:00", homeid: row[6], visitorid: row[7], ground_id: row[8], pricegroup: row[9])
-end
+# Game.destroy_all
+# CSV.foreach('db/table_game.csv') do |row|
+#   Game.create(id: row[0], datetime: "#{row[1]}-#{row[2]}-#{row[3]} #{row[4]}:#{row[5]}", homeid: row[6], visitorid: row[7], ground_id: row[8], pricegroup: row[9])
+# end
 
-Ground.destroy_all
-CSV.foreach('db/table_ground.csv') do |row|
-  Ground.create(id: row[0], name: row[1])
-end
+# Ground.destroy_all
+# CSV.foreach('db/table_ground.csv') do |row|
+#   Ground.create(id: row[0], name: row[1])
+# end
 
-Seatgroup.destroy_all
-CSV.foreach('db/table_seatgroup.csv') do |row|
-  Seatgroup.create(id: row[0], name: row[1], ground_id: row[2])
-end
+# Seatgroup.destroy_all
+# CSV.foreach('db/table_seatgroup.csv') do |row|
+#   Seatgroup.create(id: row[0], name: row[1], ground_id: row[2])
+# end
 
 Team.destroy_all
 CSV.foreach('db/table_team.csv') do |row|

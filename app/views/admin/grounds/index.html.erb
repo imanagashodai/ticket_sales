@@ -1,0 +1,19 @@
+<% @grounds = Ground.all %>
+<% @ground_columns = @grounds.column_names %>
+
+<h1>Groundsテーブル</h1>
+<table style="margin-left: 10px;">
+  <tr>
+    <% @ground_columns.each do |column| %>
+      <th style="padding-right: 10px;"><%= column %></th>
+    <% end %>
+  </tr>
+  
+  <% @grounds.each do |ground| %>
+    <tr>
+      <% @ground_columns.each do |column| %>
+        <td style="padding-right: 10px;"><%= ground[column] %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

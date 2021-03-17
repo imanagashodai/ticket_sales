@@ -10,12 +10,12 @@
   
   <% Game.where(homeid: params[:id]).each do |game| %>
   <tr>
-    <td><%= game.date %></td>
-    <td><%= game.time.to_s[11,5] %></td>
-    <td><%= Team.all.find(game.visitorid).name %></td>
+    <td><%= game.datetime.to_s[5,7] %></td>
+    <td><%= game.datetime.to_s[12,4] %></td>
+    <td><%= Team.find(game.visitorid).name %></td>
     <td><%= link_to "Go",  purchases_index_path(gameid: game.id) %></td>
   </tr>
   <% end %>
 </table>
 <h2>会場</h2>
-<p><%= Ground.all.find(params[:id]).name%></p>
+<p><%= Ground.find(params[:id]).name %></p>

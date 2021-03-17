@@ -16,10 +16,13 @@
       <%= render 'layouts/header2' %>
     </header>
     
-    <main style="flex: 1;">
-      
-
-      <%= yield %>
+    <main style="flex: 1; display: flex;">
+      <div>
+        <%= render "layouts/side" %>
+      </div>
+      <div>
+        <%= yield %>
+      </div>
     </main>
     
     <footer>
@@ -27,6 +30,8 @@
     </footer>
 
   </body>
+  
+  
   
     
   <script>

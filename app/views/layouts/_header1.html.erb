@@ -4,14 +4,12 @@
       <% if logged_in? %>
         <%= current_user.name %>さん
         <%= link_to "ログアウト", logout_path, method: :delete %>
-          <% if session[:user_id] == 0 %>
-            <%= link_to "ユーザー管理", users_path %>
+          <% if current_user.admin? %>
+            <%= link_to "管理人画面", admin_path %>
           <% else %>
-            <%= link_to "登録情報", user_path(session[:user_id]) %>
+            <%= link_to "登録情報", user_path(session[:user_id], key: "キー") %>
           <% end %>
       <% else %>
         <%= link_to "新規登録", new_user_path %>
         <%= link_to "ログイン", login_path %>
       <% end %>
-    
-    

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'purchases/index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   delete "users/delete"
-  resources :users
+  resources :users, only: [:new, :create, :show, :edit]
   resources :teams, only: [:index, :show]
   resources :grounds
   get "login" => "sessions#new"

@@ -1,19 +1,19 @@
-<h1>新規登録</h1>
-<%= form_with model: @user do |f| %>
+<h1>ユーザー登録</h1>
+<%= form_with model: @user, local: true do |f| %>
   <div>
     <p><%= f.label :name, "名前" %></p>
     <p><%= f.text_field :name %></p>
   </div>
   <div>
-    <p><%= f.label :email, "Eメール" %></p>
+    <p><%= f.label :email, "Eメール ※｢～@～.～｣の形で" %></p>
     <p><%= f.text_field :email %></p>
   </div>
   <div>
-    <p><%= f.label :password, "パスワード" %></p>
+    <p><%= f.label :password, "パスワード ※「8~32文字」かつ「半角英字と数字の混合」" %></p>
     <p><%= f.password_field :password %></p>
   </div>
   <div>
-    <p><%= f.label :password_confirmation, "確認用パスワード" %></p>
+    <p><%= f.label :password_confirmation, "パスワード（再入力）" %></p>
     <p><%= f.password_field :password_confirmation %></p>
   </div>
   <%= f.submit "登録" %>

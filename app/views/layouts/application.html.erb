@@ -16,11 +16,11 @@
       <%= render 'layouts/header2' %>
     </header>
     
-    <main style="flex: 1">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+    <% end %>
       
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
-      <% end %>
+    <main style="flex: 1">
       
       <div style="padding-left: 20px;">
         <%= yield %>
@@ -33,16 +33,6 @@
     </footer>
 
   </body>
-  
-    
-  <script>
-    $(function(){
-      $('.hover').hover(function(){
-        $(this).children('ul').show();
-      }, function(){
-        $(this).children('ul').hide();
-      });
-    });
-  </script>
+
 
 </html>

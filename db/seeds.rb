@@ -28,5 +28,5 @@ end
 
 Team.destroy_all
 CSV.foreach('db/table_team.csv') do |row|
-  Team.create(id: row[0], name: row[1])
+  Team.create(id: row[0], name: row[1], ground_id: row[2])
 end

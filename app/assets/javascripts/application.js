@@ -16,3 +16,16 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(document).on('turbolinks:load', function() {
+  $(".hover").hover(function(){
+    $(this).children("ul").show();
+  }, function(){
+    $(this).children('ul').hide();
+  });
+});
+
+$(document).on('turbolinks:load', function() {
+  $("table").addClass("table table-hover");
+});
+

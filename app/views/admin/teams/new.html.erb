@@ -1,0 +1,32 @@
+<h1>Teamsテーブル（新規登録）</h1>
+
+<%= form_with model: @team, url: admin_teams_path, local: true do |f| %>
+<table>
+  <thead>
+    <tr>
+      <% @team_columns.each do |column| %>
+        <th><%= column %></th>
+      <% end %>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <% @team_columns.each do |column| %>
+          <td><%= team[column] %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    
+      <tr>
+        <td></td>
+        <td><%= f.text_field :name %></td>
+        <td><%= f.select :ground_id, @select_ground, {include_blank: "未定"} %></td>
+      </tr>
+  </tbody>
+</table>
+<%= f.submit "新規登録" %>
+<% end %>
+<br>
+<p><%= link_to "戻る", admin_teams_path %></p>

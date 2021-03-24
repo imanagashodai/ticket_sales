@@ -1,12 +1,7 @@
-<% @teams = Team.all %>
-<% @team_columns = @teams.column_names %>
-<% @team = @teams.find(params[:id]) %>
-
 <h1>Teamsテーブル（編集中）</h1>
 
-
-<%= form_with url: admin_team_path, model: @team do |f| %>
-  <table class="table table-hover">
+<%= form_with model: @team, url: admin_team_path, local: true do |f| %>
+  <table>
     <thead>
       <tr>
         <% @team_columns.each do |column| %>
@@ -24,6 +19,10 @@
                   <td>
                     <%= f.text_field :name %>
                   </td>
+                <% elsif column == "ground_id" %>
+                  <td>
+                    <%= f.select :ground_id, @select_ground, {include_blank: "未定"} %>
+                  </td>
                 <% else %>
                   <td>
                     <%= team[column] %>
@@ -33,7 +32,7 @@
               <td><%= f.submit "更新" %></td>
 
             <td><%= link_to "戻る", admin_teams_path %></td>
-            <td><%= link_to "削除", admin_team_path(key: @team.id), method: :delete %></td>
+            <td><input type="button" value="削除へ進む" class="deletion_confirmation"></input></td>
           </tr>
           
         <% else %>
@@ -54,12 +53,16 @@
   </table>
 <% end %>
 
-<style>
-  th, td {
-    padding-right: 10px;
-  }
-  
-  table {
-    margin-left: 10px;
-  }
-</style>
+<div class="delete" style="display: none;">
+本当に削除しますか？
+
+<%= link_to "はい", admin_team_path(@team.id), method: :delete %>
+</div>
+
+<script>
+    $(function(){
+      $(".deletion_confirmation").click(function(){
+        $(".delete").show();
+      });
+    });
+</script>

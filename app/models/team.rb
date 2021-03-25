@@ -4,17 +4,17 @@ class Team < ApplicationRecord
   
   def self.selector(label, field)
     if field && !field.empty?
-      where("#{label}= #{field}")
+      where("#{label} = #{field}")
     else
       all
     end
   end
   
-  # def self.includer(label, field)
-  #   if field && !field.empty?
-  #     select! { |key,value| field.include?(field) }
-  #   else
-  #     all
-  #   end
-  # end
+  def self.includer(label, field)
+    if field && !field.empty?
+      where("#{label} like ?", "%#{field}%")
+    else
+      all
+    end
+  end
 end

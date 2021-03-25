@@ -2,7 +2,7 @@ class Admin::TeamsController < ApplicationController
   before_action :if_not_admin
   before_action :all_team
   before_action :set_team, only: [:show, :edit, :destroy, :update]
-  before_action :set_ground, only: [:edit, :new, :create, :update]
+  before_action :set_ground, only: [:index, :edit, :new, :create, :update]
 
   layout "admin"
   
@@ -49,8 +49,12 @@ class Admin::TeamsController < ApplicationController
     
     def all_team
       @id = params[:s_id]
+      @name = params[:s_name]
+      @created_at = params[:s_created_at]
+      @updated_at = params[:s_updated_at]
       @ground_id = params[:s_ground_id]
-      @teams = Team.selector("id", @id).selector("ground_id", @ground_id).order(params[:order])
+      params[:order] ||= "id"
+      @teams = Team.selector("id", @id).includer("name", @name).includer("created_at", @created_at).includer("updated_at", @updated_at).selector("ground_id", @ground_id).order(params[:order])
       @team_columns = Team.column_names
       # @team_columns = ["id", "name", "ground_id"]
     end

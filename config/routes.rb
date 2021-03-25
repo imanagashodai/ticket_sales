@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   delete "logout" => "sessions#destroy"
   
   namespace :admin do
-    get "/" => "pages#index"
+    get "/" => "teams#index"
     resources :teams, only: [:index, :new, :create, :show, :edit, :destroy, :update]
     resources :grounds, only: [:index, :new, :create, :show,  :edit, :destroy]
     resources :users, only: [:index, :new, :create, :show,  :edit, :destroy]

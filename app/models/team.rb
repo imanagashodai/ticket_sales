@@ -12,8 +12,8 @@ class Team < ApplicationRecord
   
   def self.includer(label, field)
     if field && !field.empty?
-      where("#{label.to_s} like ?", "%#{field}%")
-      # where("cast(#{label} as text) like ?", "%#{field}%")
+      # where("#{label} like ?", "%#{field}%") #MySQL
+      where("cast(#{label} as text) like ?", "%#{field}%") #PostgreSQL
     else
       all
     end

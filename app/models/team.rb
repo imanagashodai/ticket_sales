@@ -4,8 +4,8 @@ class Team < ApplicationRecord
   
   def self.selector(label, field)
     if field && !field.empty?
-      where("#{label} like ?", "#{field}")
-      # where("#{label} = #{field}")
+      # where("#{label} like ?", "#{field}")
+      where("#{label} = #{field}")
     else
       all
     end

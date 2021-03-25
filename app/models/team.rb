@@ -12,7 +12,7 @@ class Team < ApplicationRecord
   
   def self.includer(label, field)
     if field && !field.empty?
-      where("cast(#{label} as string) like ?", "%#{field}%")
+      where("cast(#{label} as text) like ?", "%#{field}%")
     else
       all
     end

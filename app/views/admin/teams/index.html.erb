@@ -1,70 +1,10 @@
-<h1>Teamsテーブル</h1>
+<h1 id="admin_top">Teamテーブル</h1>
 
-<div id="search_field">
-  <%= form_with local: true, method: "get" do |f| %>
-  
-    <%= f.submit "検索" %>
-    <%= f.label :s_id, "id" %>
-    <%= f.number_field :s_id, value: @id %>
-    <%= f.label :s_name, "name" %>
-    <%= f.search_field :s_name, value: @name %>
-    <%= f.label :s_created_at, "created_at" %>
-    <%= f.date_field :s_created_at, value: @created_at %>
-    <%= f.label :s_updated_at, "updated_at" %>
-    <%= f.date_field :s_updated_at, value: @updated_at %>
-    <%= f.label :s_ground_id, "ground_id" %>
-    <%= f.select :s_ground_id, @select_ground, {include_blank: "未定", selected: @ground_id} %>
-  <% end %>
-</div>
-<%= link_to "リセット" %>
+<%= render "layouts/admin/team_search" %>
 
-<table>
-  <thead>
-    <tr>
-      <% @team_columns.each do |column| %>
-        <th><%= order_machine(column) %></th>
-      <% end %>
-    </tr>
-  </thead>
-  
-  <tbody>
-    <% @teams.each do |team| %>
-      <tr>
-        <% @team_columns.each do |column| %>
-          <td><%= team[column] %></td>
-        <% end %>
-        <td>
-          <%= link_to "編集", edit_admin_team_path(team.id) %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<p style="margin-left: 10px;"><%= link_to "新規登録画面", new_admin_team_path %></p>
+<ul id="anchors">
+  <li><%= link_to "リセット" %></li>
+  <li><%= link_to "新規登録画面", new_admin_team_path %></li>
+</ul>
 
-<style>
-#search_field input {
-  margin-right: 10px;
-}
-  
-#search_field [type="number"] {
-  width: 70px;
-}
-
-#search_field [type="search"] {
-  width: 120px;
-}
-
-</style>
-
-<script>
-  $(function(){
-    let anchor_link = $("th a");
-    for(i=0; i <  anchor_link.length ; i++){
-      if(location.search.match(/commit/).length > 0){
-        anchor_link[i].href = window.location.search+"&"+anchor_link[i].href.split("?")[1];
-      }
-    }
-  })
-</script>
-
+<%= render "layouts/admin/table/index", m_all: @teams, m_columns: @team_columns, m_name: Team  %>

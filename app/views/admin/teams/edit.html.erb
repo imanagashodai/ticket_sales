@@ -1,14 +1,21 @@
-<h1>Teamsテーブル（編集中）</h1>
+<h1 id="admin_top">Teamテーブル（編集中）</h1>
+
+<%= render "layouts/admin/team_search" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット" %></li>
+  <li><%= link_to "新規登録画面", new_admin_team_path %></li>
+  <li id="delete" style="display: none;">
+    本当に削除しますか？    
+    <%= link_to "はい", admin_team_path(@team.id), method: :delete %>
+  </li>
+</ul>
+
+<% m_columns= @team_columns %>
 
 <%= form_with model: @team, url: admin_team_path, local: true do |f| %>
   <table>
-    <thead>
-      <tr>
-        <% @team_columns.each do |column| %>
-          <th><%= column %></th>
-        <% end %>
-      </tr>
-    </thead>
+    <%= render "layouts/admin/table/thead", m_columns: m_columns %>
   
     <tbody>
       <% @teams.each do |team| %>
@@ -16,35 +23,25 @@
           <tr>
               <% @team_columns.each do |column| %>
                 <% if column == "name" %>
-                  <td>
-                    <%= f.text_field :name %>
-                  </td>
+                  <td><%= f.text_field :name %></td>
                 <% elsif column == "ground_id" %>
-                  <td>
-                    <%= f.select :ground_id, @select_ground, {include_blank: "未定"} %>
-                  </td>
+                  <td><%= f.select :ground_id, @select_ground, {include_blank: "未定"} %></td>
                 <% else %>
-                  <td>
-                    <%= team[column] %>
-                  </td>
+                  <td><%= team[column] %></td>
                 <% end %>
               <% end %>
               <td><%= f.submit "更新" %></td>
 
             <td><%= link_to "戻る", admin_teams_path %></td>
-            <td><input type="button" value="削除へ進む" class="deletion_confirmation"></input></td>
+            <td><input type="button" value="削除へ進む（ページ上部へ）" class="deletion_confirmation"></input><td>
           </tr>
           
         <% else %>
           <tr>
             <% @team_columns.each do |column| %>
-              <td>
-                <%= team[column] %>
-              </td>
+              <td><%= team[column] %></td>
             <% end %>
-            <td>
-              <%= link_to "編集", edit_admin_team_path(team.id) %>
-            </td>
+            <td><%= link_to "編集", edit_admin_team_path(team.id) %></td>
           </tr>
         <% end %>
       <% end %>
@@ -52,17 +49,3 @@
 
   </table>
 <% end %>
-
-<div class="delete" style="display: none;">
-本当に削除しますか？
-
-<%= link_to "はい", admin_team_path(@team.id), method: :delete %>
-</div>
-
-<script>
-    $(function(){
-      $(".deletion_confirmation").click(function(){
-        $(".delete").show();
-      });
-    });
-</script>

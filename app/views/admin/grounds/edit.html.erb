@@ -1,0 +1,54 @@
+<h1 id="admin_top">Groundテーブル（編集中）</h1>
+
+<%
+m_name = "ground"
+m_columns = @ground_columns
+model = @ground
+m_all = @grounds
+%>
+
+<%= render "layouts/admin/#{m_name}_search" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット" %></li>
+  <li><%= link_to "新規登録画面", send("new_admin_#{m_name}_path") %></li>
+  <li id="delete" style="display: none;">
+    本当に削除しますか？    
+    <%= link_to "はい", send("admin_#{m_name}_path", id: model.id), method: :delete %>
+  </li>
+</ul>
+
+<%= form_with model: model, url: ("admin_#{m_name}_path"), local: true do |f| %>
+  <table>
+    <%= render "layouts/admin/table/thead", m_columns: m_columns %>
+  
+    <tbody>
+      <% m_all.each do |m_one| %>
+        <% if m_one == model %>
+          <tr>
+              <% m_columns.each do |column| %>
+                <% if column == "name" %>
+                  <td><%= f.text_field :name %></td>
+                <% else %>
+                  <td><%= m_one[column] %></td>
+                <% end %>
+              <% end %>
+              <td><%= f.submit "更新" %></td>
+
+            <td><%= link_to "戻る", send("admin_#{m_name}s_path") %></td>
+            <td><input type="button" value="削除へ進む（ページ上部へ）" class="deletion_confirmation"></input><td>
+          </tr>
+          
+        <% else %>
+          <tr>
+            <% m_columns.each do |column| %>
+              <td><%= m_one[column] %></td>
+            <% end %>
+            <td><%= link_to "編集", send("edit_admin_#{m_name}_path", id: m_one.id) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+
+  </table>
+<% end %>

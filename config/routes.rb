@@ -12,11 +12,11 @@ Rails.application.routes.draw do
   
   namespace :admin do
     get "/" => "teams#index"
-    resources :teams, only: [:index, :new, :create, :show, :edit, :destroy, :update]
-    resources :grounds, only: [:index, :new, :create, :show,  :edit, :destroy]
-    resources :users, only: [:index, :new, :create, :show,  :edit, :destroy]
-    resources :seatgroups, only: [:index, :new, :create, :show,  :edit, :destroy]
-    resources :games, only: [:index, :new, :create, :show,  :edit, :destroy]
+    resources :teams, except: :show
+    resources :grounds, except: :show
+    resources :users, only: [:index, :new, :create, :show,  :edit, :destroy, :update]
+    resources :seatgroups, only: [:index, :new, :create, :show,  :edit, :destroy, :update]
+    resources :games, only: [:index, :new, :create, :show,  :edit, :destroy, :update]
   end
   
 end

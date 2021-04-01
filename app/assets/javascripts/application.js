@@ -28,4 +28,3 @@ $(document).on('turbolinks:load', function() {
 $(document).on('turbolinks:load', function() {
   $("table").addClass("table table-hover");
 });
-

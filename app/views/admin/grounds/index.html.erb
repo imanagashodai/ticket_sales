@@ -1,19 +1,10 @@
-<% @grounds = Ground.all %>
-<% @ground_columns = @grounds.column_names %>
+<h1 id="admin_top">Groundテーブル</h1>
 
-<h1>Groundsテーブル</h1>
-<table style="margin-left: 10px;">
-  <tr>
-    <% @ground_columns.each do |column| %>
-      <th style="padding-right: 10px;"><%= column %></th>
-    <% end %>
-  </tr>
-  
-  <% @grounds.each do |ground| %>
-    <tr>
-      <% @ground_columns.each do |column| %>
-        <td style="padding-right: 10px;"><%= ground[column] %></td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+<%= render "layouts/admin/ground_search" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット" %></li>
+  <li><%= link_to "新規登録画面", new_admin_ground_path %></li>
+</ul>
+
+<%= render "layouts/admin/table/index", m_all: @grounds, m_columns: @ground_columns, m_name: Ground  %>

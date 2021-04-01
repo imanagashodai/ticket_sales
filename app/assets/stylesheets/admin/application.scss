@@ -1,0 +1,31 @@
+#search_field {
+  input {
+    margin-right: 10px;
+  }
+  
+  [type="number"] {
+    width: 70px;
+  }
+  
+  [type="search"] {
+    width: 120px;
+  }
+}
+
+#anchors {
+  display: flex; list-style: none; 
+  padding: 0; 
+  margin: 10px 0 0 0;
+  
+  li {
+    padding-right: 20px;
+  }
+}
+
+#admin_top {
+  margin: 10px 0;
+}
+
+#delete {
+  background-color: #e8ffe8;
+}

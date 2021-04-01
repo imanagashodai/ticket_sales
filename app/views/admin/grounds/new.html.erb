@@ -1,6 +1,6 @@
-<h1 id="admin_top">Teamテーブル（新規登録中）</h1>
+<h1 id="admin_top">Groundテーブル（新規登録中）</h1>
 
-<%= render "layouts/admin/team_search" %>
+<%= render "layouts/admin/ground_search" %>
 
 <ul id="anchors">
   <li><%= link_to "リセット" %></li>
@@ -8,10 +8,10 @@
 
 <!--編集する変数-->
 <% 
-m_name = "team"
-m_columns = @team_columns
-model = @team
-m_all = @teams
+m_name = "ground"
+m_columns = @ground_columns
+model = @ground
+m_all = @grounds
 %>
 
 <%= form_with model: model, url: send("admin_#{m_name}s_path"), local: true do |f| %>
@@ -24,11 +24,10 @@ m_all = @teams
       <td><%= f.text_field :name %></td>
       <td></td>
       <td></td>
-      <td><%= f.select :ground_id, @select_ground, {include_blank: "未定"} %></td>
       <td><%= f.submit "登録" %></td>
-      <td><%= link_to "戻る", admin_teams_path %></td>
+      <td><%= link_to "戻る", send("admin_#{m_name}s_path") %></td>
     </tr>
-  
+    
     <% m_all.each do |m_one| %>
       <tr>
         <% m_columns.each do |column| %>

@@ -5,4 +5,9 @@ class ApplicationController < ActionController::Base
 
   add_flash_types :success, :info, :warning, :danger
   
+  private
+    def if_not_admin
+      redirect_to root_path unless current_user.admin?
+    end
+  
 end

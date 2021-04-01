@@ -1,39 +1,47 @@
 class Admin::TeamsController < ApplicationController
   before_action :if_not_admin
-  before_action :all_team
-  before_action :set_team, only: [:show, :edit, :destroy, :update]
+  before_action :selected_teams
   before_action :set_ground, only: [:index, :edit, :new, :create, :update]
 
-  layout "admin"
+  layout "admin/admin"
+  
+  def index
+  end
   
   def new
     @team = Team.new
   end
   
+  def edit
+    @team = Team.find(params[:id])
+  end
+  
   def create
     @team = Team.new(team_params)
     if @team.save
-      redirect_to admin_teams_path, success: "チーム登録しました"
+      redirect_to admin_teams_path, success: "登録完了"
     else
-      flash.now[:danger] = "チーム登録失敗"
+      flash.now[:danger] = "登録失敗"
       render :new
     end
   end
   
   def update
+    @team = Team.find(params[:id])
     if @team.update(team_params)
-      redirect_to admin_teams_path, success: "チームデータ更新しました"
+      redirect_to admin_teams_path, success: "更新完了"
     else
-      flash.now[:danger] = "チームデータ更新失敗"
+      flash.now[:danger] = "更新失敗"
       render :edit
     end
   end
 
   def destroy
+    @team = Team.find(params[:id])
     if @team.destroy
-      redirect_to admin_teams_path, info: "チーム削除しました"
+      redirect_to admin_teams_path, info: "削除完了"
     else
-      flash.now[:danger] = "チーム削除失敗"
+      flash.now[:danger] = "削除失敗"
       render :edit
     end
   end
@@ -42,12 +50,8 @@ class Admin::TeamsController < ApplicationController
     def team_params
       params.require(:team).permit(:name, :ground_id)
     end
-  
-    def if_not_admin
-      redirect_to root_path unless current_user.admin?
-    end
     
-    def all_team
+    def selected_teams
       @id = params[:s_id]
       @name = params[:s_name]
       @created_at = params[:s_created_at]
@@ -56,11 +60,6 @@ class Admin::TeamsController < ApplicationController
       params[:order] ||= "id"
       @teams = Team.selector("id", @id).includer("name", @name).includer("created_at", @created_at).includer("updated_at", @updated_at).selector("ground_id", @ground_id).order(params[:order])
       @team_columns = Team.column_names
-      # @team_columns = ["id", "name", "ground_id"]
-    end
-  
-    def set_team
-      @team = Team.find(params[:id])
     end
     
     def set_ground

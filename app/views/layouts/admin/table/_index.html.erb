@@ -1,0 +1,14 @@
+<table>
+  <%= render "layouts/admin/table/thead", m_columns: m_columns %>
+  
+  <tbody>
+    <% m_all.each do |model| %>
+      <tr>
+        <% m_columns.each do |column| %>
+          <td><%= model[column] %></td>
+        <% end %>
+        <td><%= link_to "編集", send("edit_admin_#{m_name.name.downcase}_path", id: model.id)  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

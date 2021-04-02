@@ -2,9 +2,8 @@ class CreateGames < ActiveRecord::Migration[5.2]
   def change
     create_table :games do |t|
       t.datetime :datetime
-      t.integer :homeid
-      t.integer :visitorid
-      t.integer :ground_id
+      t.references :hometeam, foreign_key: { to_table: :teams }
+      t.references :ground, foreign_key: true
       t.integer :pricegroup
 
       t.timestamps

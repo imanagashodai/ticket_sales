@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_081610) do
+ActiveRecord::Schema.define(version: 2021_04_02_030137) do
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "datetime"
-    t.integer "homeid"
-    t.integer "visitorid"
-    t.integer "ground_id"
+    t.bigint "hometeam_id"
+    t.bigint "ground_id"
     t.integer "pricegroup"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["ground_id"], name: "index_games_on_ground_id"
+    t.index ["hometeam_id"], name: "index_games_on_hometeam_id"
   end
 
   create_table "grounds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -51,4 +52,6 @@ ActiveRecord::Schema.define(version: 2021_03_22_081610) do
     t.boolean "admin", default: false
   end
 
+  add_foreign_key "games", "grounds"
+  add_foreign_key "games", "teams", column: "hometeam_id"
 end

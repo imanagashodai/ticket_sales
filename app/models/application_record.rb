@@ -13,7 +13,7 @@ class ApplicationRecord < ActiveRecord::Base
     if field && !field.empty?
       # where("#{label} like ?", "%#{field}%") #MySQL
       # where("cast(#{label} as text) like ?", "%#{field}%") #PostgreSQL
-      where("#{label} like '%#{field}%'")
+      where("#{label} like '%#{field.to_s}%'")
     else
       all
     end

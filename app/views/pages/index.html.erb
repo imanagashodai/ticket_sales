@@ -4,7 +4,8 @@
 
 <!--< games = Game.where("datetime like ?", "#{Date.today}%") #MySQL %>-->
 <!--< games = Game.where("cast(#{datetime} as text) like ?", "%#{Date.today}%") #PostgreSQL %>-->
-<% games = Game.where("datetime: (Time.now.midnight - 1.day)..Time.now.midnight") #PostgreSQL %>
+<% games = Game.where(datetime: (Time.now.midnight - 1.day)..Time.now.midnight) #PostgreSQL %>
+
 
 <ul style="list-style: none;">
 <% games.each do |game| %>

@@ -45,18 +45,30 @@ class Admin::GroundsController < ApplicationController
     end
   end
   
+  def search
+    session[:s_grounds_id] = params[:s_grounds_id]
+    session[:s_grounds_name] = params[:s_grounds_name]
+    session[:s_grounds_created_at] = params[:s_grounds_created_at]
+    session[:s_grounds_updated_at] = params[:s_grounds_updated_at]
+    redirect_back(fallback_location: root_path)
+  end
+  
+  def reset
+    session.delete(:s_grounds_id)
+    session.delete(:s_grounds_name)
+    session.delete(:s_grounds_created_at)
+    session.delete(:s_grounds_updated_at)
+    redirect_back(fallback_location: root_path)
+  end
+  
   private
     def ground_params
       params.require(:ground).permit(:name)
     end
     
     def selected_grounds
-      @id = params[:s_id]
-      @name = params[:s_name]
-      @created_at = params[:s_created_at]
-      @updated_at = params[:s_updated_at]
       params[:order] ||= "id"
-      @grounds = Ground.selector("id", @id).includer("name", @name).includer("created_at", @created_at).includer("updated_at", @updated_at).order(params[:order])
+      @grounds = Ground.selector("id", session[:s_grounds_id]).includer("name", session[:s_grounds_name]).includer("created_at", session[:s_grounds_created_at]).includer("updated_at", session[:s_grounds_updated_at]).order(params[:order])
       @ground_columns = Ground.column_names
     end
     

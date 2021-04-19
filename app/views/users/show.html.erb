@@ -13,7 +13,14 @@
   </tr>
 </table>
 
-<%= params[:id]  %>
-<% params[:id] = 2 %>
-<%= params[:id]  %>
-<%= params[:key] %>
+<h2>購入チケット一覧</h2>
+<table>
+  <tbody>
+    <% current_user.purchases.each do |purchase| %>
+      <tr>
+        <td><%= purchase.id %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

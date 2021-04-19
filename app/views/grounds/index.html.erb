@@ -1,8 +1,3 @@
 <h1>球場一覧</h1>
-<table>
-  <% Ground.all.sort.each do |ground| %>
-    <tr>
-      <td><%= link_to ground.name, ground_path(ground.id) %></td>
-    </tr>
-  <% end %>
-</table>
+
+<%= render "layouts/index", model: Ground %>

@@ -1,0 +1,42 @@
+<header class="navbar-default" style="padding-right: 15px;">
+  <%= link_to root_path do %>
+    <%= image_tag "icons/top.png", class: "navbar-top" %>
+  <% end %>
+  
+  <% if logged_in? %>
+    <%= current_user.name %>さん
+  <% end %>
+  
+
+  <ul class="nav navbar-nav navbar-right navbar-last">
+    <li class="hover">
+      <%= link_to "球団一覧", teams_path %>
+      <ul class="dropdown">
+        <% Team.all.sort.each do |team| %>
+          <li><%= link_to team.name, team_path(team.id) %></li>
+        <% end %>
+      </ul>
+    </li>
+  
+    <li class="hover">
+      <%= link_to "球場一覧", grounds_path %>
+      <ul class="dropdown">
+        <% Ground.all.sort.each do |ground| %>
+          <li><%= link_to ground.name, ground_path(ground.id) %></li>
+        <% end %>
+      </ul>
+    </li>
+    
+    <% if logged_in? %>
+      <% if current_user.admin? %>
+        <li><%= link_to "管理人画面", admin_path %></li>
+      <% end %>
+      <li><%= link_to "カート(#{current_cart.count})", cart_path(session[:user_id]) %></li>
+      <li><%= link_to "ユーザー情報", user_path(session[:user_id]) %></li>
+      <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+    
+    <% else %>
+      <li><%= link_to "ユーザー登録", new_user_path %></li>
+      <li><%= link_to "ログイン", login_path %></li>
+    <% end %>
+</header>

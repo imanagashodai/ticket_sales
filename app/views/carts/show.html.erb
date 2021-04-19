@@ -1,0 +1,19 @@
+<% @cart = Cart.where(user_id: session[:user_id]) %>
+<% num = 0 %>
+
+<h1><%= current_user.name %>のカート</h1>
+<ul>
+  <% @cart.each do |cart| %>
+    <%
+    ticket = cart.ticket
+    seat = ticket.seat
+    seatgroup = seat.seatgroup
+    num += seatgroup.price
+    %>
+    <li><%= seatgroup.name %> <%= seat.name %> <%= seatgroup.price %>円</li>
+  <% end %>
+</ul>
+
+<h2>合計<%= num %>円</h2>
+<%= link_to "購入", carts_path, method: :post %>
+<%= link_to "削除", cart_path, method: :delete %>

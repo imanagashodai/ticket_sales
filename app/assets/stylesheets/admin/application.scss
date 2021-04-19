@@ -1,6 +1,45 @@
+#side {
+  background-color: #ffebff;
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    
+    li {
+      &.list-top, a {
+        padding: 5px 10px;
+      }
+      
+      &.list-top {
+        background-color: gray;
+        color: white;
+      }
+      
+      a {
+        display: block;
+        border-bottom: solid;
+        border-color: gray;
+        
+        &:hover {
+          background-color: red;
+          text-decoration: none;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+$width: 10px;
+
 #search_field {
+  select {
+    margin-right: $width
+  }
+  
   input {
-    margin-right: 10px;
+    margin-right: $width
   }
   
   [type="number"] {

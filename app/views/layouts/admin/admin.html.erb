@@ -11,10 +11,8 @@
 
 
   <body style="display: flex; flex-flow: column; min-height: 100vh;">
-    <header style="padding-left: 20px;">
-      <%= render 'layouts/header1' %>
-      <%= render 'layouts/header2' %>
-    </header>
+    
+    <%= render 'layouts/header' %>
     
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
@@ -22,7 +20,13 @@
       
     <main style="flex: 1; display: flex;">
       <nav id="side">
-        <%= render "layouts/side" %>
+        <% models = [Team, Ground, User, Blockeduser, Seatgroup, Seat, Ticket, Cart, Purchase, Game] %>
+        <ul>
+          <li class="list-top">クラス一覧</li>
+          <% models.each do |model| %>
+            <li><%= link_to model,  send("admin_#{model.name.downcase}s_path") %></li>
+          <% end %>
+        </ul>
       </nav>
       
       <div style="padding-left: 30px;">
@@ -30,7 +34,7 @@
       </div>
     </main>
     
-    <footer>
+    <footer style="padding-left: 20px;">
       <%= render 'layouts/footer' %>
     </footer>
 

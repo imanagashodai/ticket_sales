@@ -1,0 +1,36 @@
+<h1 id="admin_top">Gameテーブル（新規登録中）</h1>
+
+<%= render "layouts/admin/search/game" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_games_reset_path %></li>
+</ul>
+
+<%= form_with model: @game, url: admin_games_path, local: true do |f| %>
+<table>
+  <%= render "layouts/admin/table/thead", m_columns: @game_columns %>
+  
+  <tbody>
+    <tr>
+      <td></td>
+      <td><%= f.datetime_field :datetime %></td>
+      <td><%= f.select :hometeam_id, @select_team, {include_blank: "選択(必須)"} %></td>
+      <td><%= f.select :visitorteam_id, @select_team, {include_blank: "選択(必須)"} %></td>
+      <td><%= f.select :ground_id, @select_ground, {include_blank: "選択(必須)"} %></td>
+      <td></td>
+      <td></td>
+      <td><%= f.submit "登録" %></td>
+      <td><%= link_to "戻る", admin_games_path %></td>
+    </tr>
+  
+    <% @games.each do |game| %>
+      <tr>
+        <% @game_columns.each do |column| %>
+          <td><%= game[column] %></td>
+        <% end %>
+          <td><%= link_to "編集", edit_admin_game_path(game.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

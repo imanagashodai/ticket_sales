@@ -1,0 +1,45 @@
+<h1 id="admin_top">Gameテーブル（編集中）</h1>
+
+<%= render "layouts/admin/search/game" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_games_reset_path %></li>
+  <li><%= link_to "新規登録画面", new_admin_game_path %></li>
+  <li id="delete" style="display: none;">
+    本当に削除しますか？    
+    <%= link_to "はい", admin_game_path(@game.id), method: :delete %>
+  </li>
+</ul>
+
+<%= form_with model: @game, url: admin_game_path, local: true do |f| %>
+  <table>
+    <%= render "layouts/admin/table/thead", m_columns: @game_columns %>
+  
+    <tbody>
+      <% @games.each do |game| %>
+        <% if game == @game %>
+          <tr>
+            <td><%= game.id %></td>
+            <td><%= f.datetime_field :datetime %></td>
+            <td><%= f.select :hometeam_id, @select_team %></td>
+            <td><%= f.select :visitorteam_id, @select_team %></td>
+            <td><%= f.select :ground_id, @select_ground %></td>
+            <td><%= game.created_at %></td>
+            <td><%= game.updated_at %></td>
+            <td><%= f.submit "更新" %></td>
+            <td><%= link_to "戻る", admin_games_path %></td>
+            <td><input type="button" value="削除へ進む（ページ上部へ）" class="deletion_confirmation"></input><td>
+          </tr>
+          
+        <% else %>
+          <tr>
+            <% @game_columns.each do |column| %>
+              <td><%= game[column] %></td>
+            <% end %>
+            <td><%= link_to "編集", edit_admin_game_path(game.id) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

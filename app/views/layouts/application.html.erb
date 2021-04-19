@@ -11,21 +11,17 @@
 
 
   <body style="display: flex; flex-flow: column; min-height: 100vh;">
-    <header style="padding-left: 20px;">
-      <%= render 'layouts/header1' %>
-      <%= render 'layouts/header2' %>
-    </header>
+    
+    <%= render 'layouts/header' %>
     
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
     <% end %>
       
-    <main style="flex: 1">
-      
+    <main style="flex: 1; display: flex;">
       <div style="padding-left: 20px;">
         <%= yield %>
       </div>
-      
     </main>
     
     <footer style="padding-left: 20px;">

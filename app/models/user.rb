@@ -6,6 +6,11 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: val_email }
   validates :password, presence: true, format: { with: val_password }
   has_secure_password
+  
+  has_one :blockeduser
+  has_many :seats
+  has_many :purchases
+  
   # acts_as_paranoid
-
+  
 end

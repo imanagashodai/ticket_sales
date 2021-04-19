@@ -1,0 +1,48 @@
+<h1 id="admin_top">Ticketテーブル（編集中）</h1>
+
+<%= render "layouts/admin/search/ticket" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_tickets_reset_path %></li>
+  <li><%= link_to "新規登録画面", new_admin_ticket_path %></li>
+  <li id="delete" style="display: none;">
+    本当に削除しますか？    
+    <%= link_to "はい", admin_ticket_path(@ticket.id), method: :delete %>
+  </li>
+</ul>
+
+<%= form_with model: @ticket, url: admin_ticket_path, local: true do |f| %>
+  <table>
+    <%= render "layouts/admin/table/thead", m_columns: @ticket_columns %>
+  
+    <tbody>
+      <% @tickets.each do |ticket| %>
+        <% if ticket == @ticket %>
+          <tr>
+              <% @ticket_columns.each do |column| %>
+                <% if column == "game_id" %>
+                  <td><%= f.select :game_id, @select_game %></td>
+                <% elsif column == "seat_id" %>
+                  <td><%= f.select :seat_id, @select_seat %></td>
+                <% else %>
+                  <td><%= ticket[column] %></td>
+                <% end %>
+              <% end %>
+              <td><%= f.submit "更新" %></td>
+
+            <td><%= link_to "戻る", admin_tickets_path %></td>
+            <td><input type="button" value="削除へ進む（ページ上部へ）" class="deletion_confirmation"></input><td>
+          </tr>
+          
+        <% else %>
+          <tr>
+            <% @ticket_columns.each do |column| %>
+              <td><%= ticket[column] %></td>
+            <% end %>
+            <td><%= link_to "編集", edit_admin_ticket_path(ticket.id) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

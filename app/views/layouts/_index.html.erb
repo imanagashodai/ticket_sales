@@ -1,0 +1,5 @@
+<ul>
+  <% model.all.sort.each do |record| %>
+    <li><%= link_to record.name, send("#{model.name.downcase}_path", record.id) %></li>
+  <% end %>
+</ul>

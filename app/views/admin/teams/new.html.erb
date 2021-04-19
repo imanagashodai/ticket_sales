@@ -1,22 +1,14 @@
 <h1 id="admin_top">Teamテーブル（新規登録中）</h1>
 
-<%= render "layouts/admin/team_search" %>
+<%= render "layouts/admin/search/team" %>
 
 <ul id="anchors">
-  <li><%= link_to "リセット" %></li>
+  <li><%= link_to "リセット", admin_teams_reset_path %></li>
 </ul>
 
-<!--編集する変数-->
-<% 
-m_name = "team"
-m_columns = @team_columns
-model = @team
-m_all = @teams
-%>
-
-<%= form_with model: model, url: send("admin_#{m_name}s_path"), local: true do |f| %>
+<%= form_with model: @team, url: admin_teams_path, local: true do |f| %>
 <table>
-  <%= render "layouts/admin/table/thead", m_columns: m_columns %>
+  <%= render "layouts/admin/table/thead", m_columns: @team_columns %>
   
   <tbody>
     <tr>
@@ -29,12 +21,12 @@ m_all = @teams
       <td><%= link_to "戻る", admin_teams_path %></td>
     </tr>
   
-    <% m_all.each do |m_one| %>
+    <% @teams.each do |team| %>
       <tr>
-        <% m_columns.each do |column| %>
-          <td><%= m_one[column] %></td>
+        <% @team_columns.each do |column| %>
+          <td><%= team[column] %></td>
         <% end %>
-          <td><%= link_to "編集", send("edit_admin_#{m_name}_path", id: m_one.id) %></td>
+          <td><%= link_to "編集", edit_admin_team_path(team.id) %></td>
       </tr>
     <% end %>
   </tbody>

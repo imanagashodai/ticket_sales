@@ -1,9 +1,9 @@
 <h1 id="admin_top">Teamテーブル（編集中）</h1>
 
-<%= render "layouts/admin/team_search" %>
+<%= render "layouts/admin/search/team" %>
 
 <ul id="anchors">
-  <li><%= link_to "リセット" %></li>
+  <li><%= link_to "リセット", admin_teams_reset_path %></li>
   <li><%= link_to "新規登録画面", new_admin_team_path %></li>
   <li id="delete" style="display: none;">
     本当に削除しますか？    
@@ -11,11 +11,9 @@
   </li>
 </ul>
 
-<% m_columns= @team_columns %>
-
 <%= form_with model: @team, url: admin_team_path, local: true do |f| %>
   <table>
-    <%= render "layouts/admin/table/thead", m_columns: m_columns %>
+    <%= render "layouts/admin/table/thead", m_columns: @team_columns %>
   
     <tbody>
       <% @teams.each do |team| %>
@@ -46,6 +44,5 @@
         <% end %>
       <% end %>
     </tbody>
-
   </table>
 <% end %>

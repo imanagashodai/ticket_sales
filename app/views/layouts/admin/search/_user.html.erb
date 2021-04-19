@@ -1,0 +1,17 @@
+<div id="search_field">
+  <%= form_with local: true, url: admin_users_search_path, method: "get" do |f| %>
+    <%= f.submit "検索" %>
+    <%= f.label :s_users_id, "id" %>
+    <%= f.number_field :s_users_id, value: session[:s_users_id] %>
+    <%= f.label :s_users_name, "name" %>
+    <%= f.search_field :s_users_name, value: session[:s_users_name] %>
+    <%= f.label :s_users_email, "email" %>
+    <%= f.search_field :s_users_email, value: session[:s_users_email] %>
+    <%= f.label :s_users_created_at, "created_at" %>
+    <%= f.date_field :s_users_created_at, value: session[:s_users_created_at] %>
+    <%= f.label :s_users_updated_at, "updated_at" %>
+    <%= f.date_field :s_users_updated_at, value: session[:s_users_updated_at] %>
+    <%= f.label :s_users_admin, "admin" %>
+    <%= f.select :s_users_admin, [true, false], {include_blank: "未定", selected: session[:s_users_admin]} %>
+  <% end %>
+</div>

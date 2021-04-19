@@ -1,19 +1,10 @@
-<% @seatgroups = Seatgroup.all %>
-<% @seatgroup_columns = @seatgroups.column_names %>
+<h1 id="admin_top">Seatgroupテーブル</h1>
 
-<h1>SeatGroupsテーブル</h1>
-<table style="margin-left: 10px;">
-  <tr>
-    <% @seatgroup_columns.each do |column| %>
-      <th style="padding-right: 10px;"><%= column %></th>
-    <% end %>
-  </tr>
-  
-  <% @seatgroups.each do |seatgroup| %>
-    <tr>
-      <% @seatgroup_columns.each do |column| %>
-        <td style="padding-right: 10px;"><%= seatgroup[column] %></td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+<%= render "layouts/admin/search/seatgroup" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_seatgroups_reset_path %></li>
+  <li><%= link_to "新規登録画面", new_admin_seatgroup_path %></li>
+</ul>
+
+<%= render "layouts/admin/table/index", m_all: @seatgroups, m_columns: @seatgroup_columns, m_name: Seatgroup  %>

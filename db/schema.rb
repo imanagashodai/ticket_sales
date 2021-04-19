@@ -10,21 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_02_030137) do
+ActiveRecord::Schema.define(version: 2021_04_18_213851) do
+
+  create_table "blockedusers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "carts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "ticket_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "games", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.datetime "datetime"
-    t.bigint "hometeam_id"
-    t.bigint "ground_id"
-    t.integer "pricegroup"
+    t.integer "hometeam_id"
+    t.integer "visitorteam_id"
+    t.integer "ground_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["ground_id"], name: "index_games_on_ground_id"
-    t.index ["hometeam_id"], name: "index_games_on_hometeam_id"
   end
 
   create_table "grounds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "purchases", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "ticket_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -34,6 +52,14 @@ ActiveRecord::Schema.define(version: 2021_04_02_030137) do
     t.integer "ground_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "price"
+  end
+
+  create_table "seats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "seatgroup_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
   end
 
   create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -41,6 +67,13 @@ ActiveRecord::Schema.define(version: 2021_04_02_030137) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "ground_id"
+  end
+
+  create_table "tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "seat_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -52,6 +85,4 @@ ActiveRecord::Schema.define(version: 2021_04_02_030137) do
     t.boolean "admin", default: false
   end
 
-  add_foreign_key "games", "grounds"
-  add_foreign_key "games", "teams", column: "hometeam_id"
 end

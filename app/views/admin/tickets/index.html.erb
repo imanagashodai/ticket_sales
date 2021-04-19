@@ -1,0 +1,10 @@
+<h1 id="admin_top">Ticketテーブル</h1>
+
+<%= render "layouts/admin/search/ticket" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_tickets_reset_path %></li>
+  <li><%= link_to "新規登録画面", new_admin_ticket_path %></li>
+</ul>
+
+<%= render "layouts/admin/table/index", m_all: @tickets, m_columns: @ticket_columns, m_name: Ticket  %>

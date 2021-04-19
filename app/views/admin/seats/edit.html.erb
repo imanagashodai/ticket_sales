@@ -1,0 +1,50 @@
+<h1 id="admin_top">Seatテーブル（編集中）</h1>
+
+<%= render "layouts/admin/search/seat" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_seats_reset_path %></li>
+  <li><%= link_to "新規登録画面", new_admin_seat_path %></li>
+  <li id="delete" style="display: none;">
+    本当に削除しますか？    
+    <%= link_to "はい", admin_seat_path(@seat.id), method: :delete %>
+  </li>
+</ul>
+
+<%= form_with model: @seat, url: admin_seat_path, local: true do |f| %>
+  <table>
+    <%= render "layouts/admin/table/thead", m_columns: @seat_columns %>
+  
+    <tbody>
+      <% @seats.each do |seat| %>
+        <% if seat == @seat %>
+          <tr>
+              <% @seat_columns.each do |column| %>
+                <% if column == "game_id" %>
+                  <td><%= f.select :game_id, @select_game %></td>
+                <% elsif column == "seatgroup_id" %>
+                  <td><%= f.select :seatgroup_id, @select_seatgroup %></td>
+                <% elsif column == "name" %>
+                  <td><%= f.text_field :name %></td>
+                <% else %>
+                  <td><%= seat[column] %></td>
+                <% end %>
+              <% end %>
+              <td><%= f.submit "更新" %></td>
+
+            <td><%= link_to "戻る", admin_seats_path %></td>
+            <td><input type="button" value="削除へ進む（ページ上部へ）" class="deletion_confirmation"></input><td>
+          </tr>
+          
+        <% else %>
+          <tr>
+            <% @seat_columns.each do |column| %>
+              <td><%= seat[column] %></td>
+            <% end %>
+            <td><%= link_to "編集", edit_admin_seat_path(seat.id) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

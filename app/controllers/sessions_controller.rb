@@ -5,9 +5,9 @@ class SessionsController < ApplicationController
   def create
     @email = params[:email]
     user = User.find_by(email: @email)
-    if user && user.authenticate(params[:password])
+    if ( user && user.authenticate(params[:password]) ) && !user.blockeduser
       log_in(user)
-      redirect_to root_path, success: "ログインに成功しました"
+      redirect_to root_path, success: "ログインしました"
     else
       flash.now[:danger] = "ログインに失敗しました"
       render :new

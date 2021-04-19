@@ -1,0 +1,15 @@
+<div id="search_field">
+  <%= form_with local: true, url: admin_seats_search_path, method: "get" do |f| %>
+    <%= f.submit "検索" %>
+    <%= f.label :s_seats_id, "id" %>
+    <%= f.number_field :s_seats_id, value: session[:s_seats_id] %>
+    <%= f.label :s_seats_seatgroup_id, "seatgroup_id" %>
+    <%= f.select :s_seats_seatgroup_id, @select_seatgroup, {include_blank: "未定", selected: session[:s_seats_seatgroup_id]} %>
+    <%= f.label :s_seats_created_at, "created_at" %>
+    <%= f.date_field :s_seats_created_at, value: session[:s_seats_created_at] %>
+    <%= f.label :s_seats_updated_at, "updated_at" %>
+    <%= f.date_field :s_seats_updated_at, value: session[:s_seats_updated_at] %>
+    <%= f.label :s_seats_name, "name" %>
+    <%= f.text_field :s_seats_name, value: session[:s_seats_name] %>
+  <% end %>
+</div>

@@ -1,0 +1,17 @@
+<div id="search_field">
+  <%= form_with local: true, url: admin_seatgroups_search_path, method: "get" do |f| %>
+    <%= f.submit "検索" %>
+    <%= f.label :s_seatgroups_id, "id" %>
+    <%= f.number_field :s_seatgroups_id, value: session[:s_seatgroups_id] %>
+    <%= f.label :s_seatgroups_name, "name" %>
+    <%= f.search_field :s_seatgroups_name, value: session[:s_seatgroups_name] %>
+    <%= f.label :s_seatgroups_ground_id, "ground_id" %>
+    <%= f.select :s_seatgroups_ground_id, @select_ground, {include_blank: "未定", selected: session[:s_seatgroups_ground_id]} %>
+    <%= f.label :s_seatgroups_created_at, "created_at" %>
+    <%= f.date_field :s_seatgroups_created_at, value: session[:s_seatgroups_created_at] %>
+    <%= f.label :s_seatgroups_updated_at, "updated_at" %>
+    <%= f.date_field :s_seatgroups_updated_at, value: session[:s_seatgroups_updated_at] %>
+    <%= f.label :s_seatgroups_price, "price" %>
+    <%= f.number_field :s_seatgroups_price, value: session[:s_seatgroups_price] %>
+  <% end %>
+</div>

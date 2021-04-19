@@ -1,0 +1,10 @@
+<h1 id="admin_top">Cartテーブル</h1>
+
+<%= render "layouts/admin/search/cart" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_carts_reset_path %></li>
+  <li><%= link_to "新規登録画面", new_admin_cart_path %></li>
+</ul>
+
+<%= render "layouts/admin/table/index", m_all: @carts, m_columns: @cart_columns, m_name: Cart  %>

@@ -46,28 +46,33 @@ class Admin::TeamsController < ApplicationController
     end
   end
   
+  def search
+    session[:s_teams_id] = params[:s_teams_id]
+    session[:s_teams_name] = params[:s_teams_name]
+    session[:s_teams_created_at] = params[:s_teams_created_at]
+    session[:s_teams_updated_at] = params[:s_teams_updated_at]
+    session[:s_teams_ground_id] = params[:s_teams_ground_id]
+    redirect_back(fallback_location: root_path)
+  end
+  
+  def reset
+    session.delete(:s_teams_id)
+    session.delete(:s_teams_name)
+    session.delete(:s_teams_created_at)
+    session.delete(:s_teams_updated_at)
+    session.delete(:s_teams_ground_id)
+    redirect_back(fallback_location: root_path)
+  end
+  
   private
     def team_params
       params.require(:team).permit(:name, :ground_id)
     end
     
     def selected_teams
-      @id = params[:s_id]
-      @name = params[:s_name]
-      @created_at = params[:s_created_at]
-      @updated_at = params[:s_updated_at]
-      @ground_id = params[:s_ground_id]
       params[:order] ||= "id"
-      @teams = Team.selector("id", @id).includer("name", @name).includer("created_at", @created_at).includer("updated_at", @updated_at).selector("ground_id", @ground_id).order(params[:order])
+      @teams = Team.selector("id", session[:s_teams_id]).includer("name", session[:s_teams_name]).includer("created_at", session[:s_teams_created_at]).includer("updated_at", session[:s_teams_updated_at]).selector("ground_id", session[:s_teams_ground_id]).order(params[:order])
       @team_columns = Team.column_names
-    end
-    
-    def set_ground
-      @select_ground = {}
-      
-      Ground.all.each do |ground|
-        @select_ground.store("#{ground.id}:#{ground.name}", ground.id)
-      end
     end
     
 end

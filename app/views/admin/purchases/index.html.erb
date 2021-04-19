@@ -1,0 +1,10 @@
+<h1 id="admin_top">Purchaseテーブル</h1>
+
+<%= render "layouts/admin/search/purchase" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_purchases_reset_path %></li>
+  <li><%= link_to "新規登録画面", new_admin_purchase_path %></li>
+</ul>
+
+<%= render "layouts/admin/table/index", m_all: @purchases, m_columns: @purchase_columns, m_name: Purchase  %>

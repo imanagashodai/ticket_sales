@@ -1,0 +1,48 @@
+<h1 id="admin_top">Cartテーブル（編集中）</h1>
+
+<%= render "layouts/admin/search/cart" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_carts_reset_path %></li>
+  <li><%= link_to "新規登録画面", new_admin_cart_path %></li>
+  <li id="delete" style="display: none;">
+    本当に削除しますか？    
+    <%= link_to "はい", admin_cart_path(@cart.id), method: :delete %>
+  </li>
+</ul>
+
+<%= form_with model: @cart, url: admin_cart_path, local: true do |f| %>
+  <table>
+    <%= render "layouts/admin/table/thead", m_columns: @cart_columns %>
+  
+    <tbody>
+      <% @carts.each do |cart| %>
+        <% if cart == @cart %>
+          <tr>
+              <% @cart_columns.each do |column| %>
+                <% if column == "ticket_id" %>
+                  <td><%= f.select :ticket_id, @select_ticket%></td>
+                <% elsif column == "user_id" %>
+                  <td><%= f.select :user_id, @select_user %></td>
+                <% else %>
+                  <td><%= cart[column] %></td>
+                <% end %>
+              <% end %>
+              <td><%= f.submit "更新" %></td>
+
+            <td><%= link_to "戻る", admin_carts_path %></td>
+            <td><input type="button" value="削除へ進む（ページ上部へ）" class="deletion_confirmation"></input><td>
+          </tr>
+          
+        <% else %>
+          <tr>
+            <% @cart_columns.each do |column| %>
+              <td><%= cart[column] %></td>
+            <% end %>
+            <td><%= link_to "編集", edit_admin_cart_path(cart.id) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

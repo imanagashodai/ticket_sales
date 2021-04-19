@@ -1,0 +1,13 @@
+<div id="search_field">
+  <%= form_with local: true, url: admin_grounds_search_path, method: "get" do |f| %>
+    <%= f.submit "検索" %>
+    <%= f.label :s_grounds_id, "id" %>
+    <%= f.number_field :s_grounds_id, value: session[:s_grounds_id]%>
+    <%= f.label :s_grounds_name, "name" %>
+    <%= f.search_field :s_grounds_name, value: session[:s_grounds_name] %>
+    <%= f.label :s_grounds_created_at, "created_at" %>
+    <%= f.date_field :s_grounds_created_at, value: session[:s_grounds_created_at] %>
+    <%= f.label :s_grounds_updated_at, "updated_at" %>
+    <%= f.date_field :s_grounds_updated_at, value: session[:s_grounds_updated_at] %>
+  <% end %>
+</div>

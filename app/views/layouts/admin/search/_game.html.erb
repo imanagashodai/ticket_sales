@@ -1,0 +1,23 @@
+<div id="search_field">
+  <%= form_with local: true, url: admin_games_search_path, method: "get" do |f| %>
+    <%= f.submit "検索" %>
+    <%= f.label :s_games_id, "id" %>
+    <%= f.number_field :s_games_id, value: session[:s_games_id] %>
+    <%= f.label :s_games_date, "date" %>
+    <%= f.date_field :s_games_date, value: session[:s_games_date] %>
+    <%= f.label :s_games_time, "time" %>
+    <%= f.time_field :s_games_time, value: session[:s_games_time] %>
+    <%= f.label :s_games_hometeam_id, "hometeam_id" %>
+    <%= f.select :s_games_hometeam_id, @select_team, {include_blank: "未定", selected: session[:s_games_hometeam_id]} %>
+    <%= f.label :s_games_visitorteam_id, "visitorteam_id" %>
+    <%= f.select :s_games_visitorteam_id, @select_team, {include_blank: "未定", selected: session[:s_games_visitorteam_id]} %>
+    <br>
+    <br>
+    <%= f.label :s_games_ground_id, "ground_id" %>
+    <%= f.select :s_games_ground_id, @select_ground, {include_blank: "未定", selected: session[:s_games_ground_id]} %>
+    <%= f.label :s_games_created_at, "created_at" %>
+    <%= f.date_field :s_games_created_at, value: session[:s_games_created_at] %>
+    <%= f.label :s_games_updated_at, "updated_at" %>
+    <%= f.date_field :s_games_updated_at, value: session[:s_games_updated_at] %>
+  <% end %>
+</div>

@@ -1,0 +1,33 @@
+<h1 id="admin_top">Blockeduserテーブル</h1>
+
+<%= render "layouts/admin/search/blockeduser" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_blockedusers_reset_path %></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= order_machine("id") %></th>
+      <th><%= order_machine("user_id") %></th>
+      <th>user.name</th>
+      <th><%= order_machine("created_at") %></th>
+      <th><%= order_machine("updated_at") %></th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @blockedusers.each do |blockeduser| %>
+      <tr>
+        <td><%= blockeduser["id"] %></td>
+        <td><%= blockeduser["user_id"] %></td>
+        <td><%= blockeduser.user.name %></td>
+        <td><%= blockeduser["created_at"] %></td>
+        <td><%= blockeduser["updated_at"] %></td>
+        <td><%= link_to "ブロック解除", admin_blockeduser_path(id: blockeduser.id), method: :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

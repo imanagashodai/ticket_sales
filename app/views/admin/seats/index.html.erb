@@ -1,0 +1,10 @@
+<h1 id="admin_top">Seatテーブル</h1>
+
+<%= render "layouts/admin/search/seat" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_seats_reset_path %></li>
+  <li><%= link_to "新規登録画面", new_admin_seat_path %></li>
+</ul>
+
+<%= render "layouts/admin/table/index", m_all: @seats, m_columns: @seat_columns, m_name: Seat  %>

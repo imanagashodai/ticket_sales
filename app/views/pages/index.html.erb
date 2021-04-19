@@ -1,20 +1,26 @@
-【現在時刻】<% time = Time.now %>
+<% time = Time.now %>
 
-<p><%= time %></p>
 <h1>本日(<%= time.month %>月<%= time.day %>日)の試合</h1>
 
-<% games = Game.where("datetime like ?", "#{Date.today}%") #MySQL %>
-
+<!--< games = Game.where("datetime like ?", "#{Date.today}%") #MySQL %>-->
+<% where("cast(#{label} as text) like ?", "%#{field}%") #PostgreSQL %>
 
 <ul style="list-style: none;">
 <% games.each do |game| %>
-<li>
-  <div style=" float: left;margin-right: 10px;"><%= game.ground.name %></div>
-  <div style=" float: left;margin-right: 10px;">対</div>
-  <%= game.hometeam_id %>
+<li class="tournament">
+  <div><%= game.hometeam.name %></div>
+  <div>対</div>
+  <div><%= game.visitorteam.name %></div>
+  <div><%= game.ground.name %></div>
+  <div><%= link_to "購入画面へ進む", game_path(game.id) %></div>
 </li>
 <% end %>
 </ul>
-<% Game.all.each do |game| %>
-<%= game.hometeam %>
-<% end %>
+
+<style>
+  
+.tournament div:not(:last-child) {
+  float: left;
+  margin-right: 10px;
+}
+</style>

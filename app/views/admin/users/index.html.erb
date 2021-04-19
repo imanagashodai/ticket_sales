@@ -1,19 +1,27 @@
-<% @users = User.all %>
-<% @user_columns = @users.column_names %>
+<h1 id="admin_top">Userテーブル</h1>
 
-<h1>Usersテーブル</h1>
-<table style="margin-left: 10px;">
-  <tr>
-    <% @user_columns.each do |column| %>
-      <th style="padding-right: 10px;"><%= column %></th>
-    <% end %>
-  </tr>
+<%= render "layouts/admin/search/user" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_users_reset_path %></li>
+</ul>
+
+<table>
+  <%= render "layouts/admin/table/thead", m_columns: @user_columns %>
   
-  <% @users.each do |user| %>
-    <tr>
-      <% @user_columns.each do |column| %>
-        <td style="padding-right: 10px;"><%= user[column] %></td>
+  <tbody>
+    <% @users.each do |user| %>
+      <% unless user.blockeduser %>
+        <tr>
+          <% @user_columns.each do |column| %>
+            <td><%= user[column] %></td>
+          <% end %>
+          
+          <% if !user.admin? %>
+            <td><%= link_to "ブロック", admin_user_path(user.id), method: :delete %></td>
+          <% end %>
+        </tr>
       <% end %>
-    </tr>
-  <% end %>
+    <% end %>
+  </tbody>
 </table>

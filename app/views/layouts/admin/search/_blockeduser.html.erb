@@ -1,0 +1,13 @@
+<div id="search_field">
+  <%= form_with local: true, url: admin_blockedusers_search_path, method: "get" do |f| %>
+    <%= f.submit "検索" %>
+    <%= f.label :s_blockedusers_id, "id" %>
+    <%= f.number_field :s_blockedusers_id, value: session[:s_blockedusers_id] %>
+    <%= f.label :s_blockedusers_user_id, "user_id" %>
+    <%= f.number_field :s_blockedusers_user_id, value: session[:s_blockedusers_user_id] %>
+    <%= f.label :s_blockedusers_created_at, "created_at" %>
+    <%= f.date_field :s_blockedusers_created_at, value: session[:s_blockedusers_created_at] %>
+    <%= f.label :s_blockedusers_updated_at, "updated_at" %>
+    <%= f.date_field :s_blockedusers_updated_at, value: session[:s_blockedusers_updated_at] %>
+  <% end %>
+</div>

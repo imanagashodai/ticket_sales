@@ -1,9 +1,9 @@
 <h1 id="admin_top">Teamテーブル</h1>
 
-<%= render "layouts/admin/team_search" %>
+<%= render "layouts/admin/search/team" %>
 
 <ul id="anchors">
-  <li><%= link_to "リセット" %></li>
+  <li><%= link_to "リセット", admin_teams_reset_path %></li>
   <li><%= link_to "新規登録画面", new_admin_team_path %></li>
 </ul>
 

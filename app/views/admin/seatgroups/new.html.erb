@@ -1,0 +1,35 @@
+<h1 id="admin_top">Seatgroupテーブル（新規登録中）</h1>
+
+<%= render "layouts/admin/search/seatgroup" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_seatgroups_reset_path %></li>
+</ul>
+
+<%= form_with model: @seatgroup, url: admin_seatgroups_path, local: true do |f| %>
+<table>
+  <%= render "layouts/admin/table/thead", m_columns: @seatgroup_columns %>
+  
+  <tbody>
+    <tr>
+      <td></td>
+      <td><%= f.text_field :name %></td>
+      <td><%= f.select :ground_id, @select_ground, {include_blank: "選択(必須)"} %></td>
+      <td></td>
+      <td></td>
+      <td><%= f.number_field :price %></td>
+      <td><%= f.submit "登録" %></td>
+      <td><%= link_to "戻る", admin_seatgroups_path %></td>
+    </tr>
+  
+    <% @seatgroups.each do |seatgroup| %>
+      <tr>
+        <% @seatgroup_columns.each do |column| %>
+          <td><%= seatgroup[column] %></td>
+        <% end %>
+          <td><%= link_to "編集", edit_admin_seatgroup_path(seatgroup.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

@@ -1,19 +1,10 @@
-<% @games = Game.all %>
-<% @game_columns = @games.column_names %>
+<h1 id="admin_top">Gameテーブル</h1>
 
-<h1>Gamesテーブル</h1>
-<table style="margin-left: 10px;">
-  <tr>
-    <% @game_columns.each do |column| %>
-      <th style="padding-right: 10px;"><%= column %></th>
-    <% end %>
-  </tr>
-  
-  <% @games.each do |game| %>
-    <tr>
-      <% @game_columns.each do |column| %>
-        <td style="padding-right: 10px;"><%= game[column] %></td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+<%= render "layouts/admin/search/game" %>
+
+<ul id="anchors">
+  <li><%= link_to "リセット", admin_games_reset_path %></li>
+  <li><%= link_to "新規登録画面", new_admin_game_path %></li>
+</ul>
+
+<%= render "layouts/admin/table/index", m_all: @games, m_columns: @game_columns, m_name: Game  %>

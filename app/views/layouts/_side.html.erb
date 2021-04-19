@@ -1,9 +1,0 @@
-<% models = [Team, Ground, User, Seatgroup, Game] %>
-
-<ul>
-  <li class="list-top">クラス一覧</li>
-  
-  <% models.each do |model| %>
-    <li><%= link_to model,  send("admin_#{model.name.downcase}s_path") %></li>
-  <% end %>
-</ul>

@@ -3,7 +3,7 @@
 <h1>本日(<%= time.month %>月<%= time.day %>日)の試合</h1>
 
 <!--< games = Game.where("datetime like ?", "#{Date.today}%") #MySQL %>-->
-<% games = Game.all #PostgreSQL %>
+<% games = Game.where("cast(#{datetime} as text) like ?", "%#{Date.today}%") #PostgreSQL %>
 
 <ul style="list-style: none;">
 <% games.each do |game| %>

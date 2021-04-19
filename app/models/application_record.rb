@@ -12,8 +12,8 @@ class ApplicationRecord < ActiveRecord::Base
   def self.includer(label, field)
     if field && !field.empty?
       # where("#{label} like ?", "%#{field}%") #MySQL
-      # where("cast(#{label} as text) like ?", "%#{field}%") #PostgreSQL
-      where("#{label} like '%#{field}%'")
+      where("cast(#{label} as text) like ?", "%#{field}%") #PostgreSQL
+      # where("#{label} like '%#{field}%'")
     else
       all
     end

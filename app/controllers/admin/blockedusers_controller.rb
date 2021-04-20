@@ -39,7 +39,7 @@ class Admin::BlockedusersController < ApplicationController
       @created_at = params[:s_created_at]
       @updated_at = params[:s_updated_at]
       params[:order] ||= "id"
-      @blockedusers = Blockeduser.selector("id", session[:s_blockedusers_id]).selector("user_id", session[:s_blockedusers_user_id]).includer("created_at", session[:s_blockedusers_created_at]).includer("updated_at", session[:s_blockedusers_updated_at]).order(params[:order])
+      @blockedusers = Blockeduser.selector("id", session[:s_blockedusers_id]).selector("user_id", session[:s_blockedusers_user_id]).created_selector(session[:s_blockedusers_created_at]).updated_selector(session[:s_blockedusers_updated_at]).order(params[:order])
     end
     
 end

@@ -3,10 +3,8 @@
     <%= f.submit "検索" %>
     <%= f.label :s_games_id, "id" %>
     <%= f.number_field :s_games_id, value: session[:s_games_id] %>
-    <%= f.label :s_games_date, "date" %>
-    <%= f.date_field :s_games_date, value: session[:s_games_date] %>
-    <%= f.label :s_games_time, "time" %>
-    <%= f.time_field :s_games_time, value: session[:s_games_time] %>
+    <%= f.label :s_games_datetime, "datetime" %>
+    <%= f.date_field :s_games_datetime, value: session[:s_games_datetime] %>
     <%= f.label :s_games_hometeam_id, "hometeam_id" %>
     <%= f.select :s_games_hometeam_id, @select_team, {include_blank: "未定", selected: session[:s_games_hometeam_id]} %>
     <%= f.label :s_games_visitorteam_id, "visitorteam_id" %>

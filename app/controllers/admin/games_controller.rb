@@ -49,8 +49,7 @@ class Admin::GamesController < ApplicationController
   
   def search
     session[:s_games_id] = params[:s_games_id]
-    session[:s_games_date] = params[:s_games_date]
-    session[:s_games_time] = params[:s_games_time]
+    session[:s_games_datetime] = params[:s_games_datetime]
     session[:s_games_hometeam_id] = params[:s_games_hometeam_id]
     session[:s_games_visitorteam_id] = params[:s_games_visitorteam_id]
     session[:s_games_ground_id] = params[:s_games_ground_id]
@@ -61,8 +60,7 @@ class Admin::GamesController < ApplicationController
   
   def reset
     session.delete(:s_games_id)
-    session.delete(:s_games_date)
-    session.delete(:s_games_time)
+    session.delete(:s_games_datetime)
     session.delete(:s_games_hometeam_id)
     session.delete(:s_games_visitorteam_id)
     session.delete(:s_games_ground_id)
@@ -78,7 +76,7 @@ class Admin::GamesController < ApplicationController
     
     def selected_games
       params[:order] ||= "id"
-      @games = Game.selector("id",  session[:s_games_id]).includer("datetime",  session[:s_games_date]).includer("datetime", "#{session[:s_games_time]}:00").selector("hometeam_id",  session[:s_games_hometeam_id]).selector("visitorteam_id",  session[:s_games_visitorteam_id]).selector("ground_id",  session[:s_games_ground_id]).created_selector(session[:s_games_created_at]).updated_selector(session[:s_games_updated_at]).order(params[:order])
+      @games = Game.selector("id",  session[:s_games_id]).datetime_selector(session[:s_games_datetime]).selector("hometeam_id",  session[:s_games_hometeam_id]).selector("visitorteam_id",  session[:s_games_visitorteam_id]).selector("ground_id",  session[:s_games_ground_id]).created_selector(session[:s_games_created_at]).updated_selector(session[:s_games_updated_at]).order(params[:order])
       @game_columns = Game.column_names
     end
     

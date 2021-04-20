@@ -39,7 +39,7 @@ class Admin::UsersController < ApplicationController
   private
     def selected_users
       params[:order] ||= "id"
-      @users = User.selector("id", session[:s_users_id]).includer("name", session[:s_users_name]).includer("email", session[:s_users_email]).includer("created_at", session[:s_users_created_at]).includer("updated_at", session[:s_users_updated_at]).selector("admin", session[:s_users_admin]).order(params[:order])
+      @users = User.selector("id", session[:s_users_id]).includer("name", session[:s_users_name]).includer("email", session[:s_users_email]).created_selector(session[:s_users_created_at]).updated_selector(session[:s_users_updated_at]).selector("admin", session[:s_users_admin]).order(params[:order])
       @user_columns = ["id", "name", "email", "created_at", "updated_at", "admin"]
     end
     

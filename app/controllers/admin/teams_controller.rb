@@ -71,7 +71,7 @@ class Admin::TeamsController < ApplicationController
     
     def selected_teams
       params[:order] ||= "id"
-      @teams = Team.selector("id", session[:s_teams_id]).includer("name", session[:s_teams_name]).includer("created_at", session[:s_teams_created_at]).includer("updated_at", session[:s_teams_updated_at]).selector("ground_id", session[:s_teams_ground_id]).order(params[:order])
+      @teams = Team.selector("id", session[:s_teams_id]).includer("name", session[:s_teams_name]).created_selector(session[:s_teams_created_at]).updated_selector(session[:s_teams_updated_at]).selector("ground_id", session[:s_teams_ground_id]).order(params[:order])
       @team_columns = Team.column_names
     end
     

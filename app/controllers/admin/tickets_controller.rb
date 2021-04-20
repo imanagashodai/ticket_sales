@@ -72,7 +72,7 @@ class Admin::TicketsController < ApplicationController
     
     def selected_tickets
       params[:order] ||= "id"
-      @tickets = Ticket.selector("id", session[:s_tickets_id]).selector("game_id", session[:s_tickets_game_id]).selector("seat_id", session[:s_tickets_seat_id]).includer("created_at", session[:s_tickets_created_at]).includer("updated_at", session[:s_tickets_updated_at]).order(params[:order])
+      @tickets = Ticket.selector("id", session[:s_tickets_id]).selector("game_id", session[:s_tickets_game_id]).selector("seat_id", session[:s_tickets_seat_id]).created_selector(session[:s_tickets_created_at]).updated_selector(session[:s_tickets_updated_at]).order(params[:order])
       @ticket_columns = Ticket.column_names
     end
 

@@ -77,7 +77,7 @@ class Admin::CartsController < ApplicationController
       @created_at = params[:s_created_at]
       @updated_at = params[:s_updated_at]
       params[:order] ||= "id"
-      @carts = Cart.selector("id", session[:s_carts_id]).selector("user_id", session[:s_carts_user_id]).selector("ticket_id", session[:s_carts_ticket_id]).includer("created_at", session[:s_carts_created_at]).includer("updated_at", session[:s_carts_updated_at]).order(params[:order])
+      @carts = Cart.selector("id", session[:s_carts_id]).selector("user_id", session[:s_carts_user_id]).selector("ticket_id", session[:s_carts_ticket_id]).created_selector(session[:s_carts_created_at]).updated_selector(session[:s_carts_updated_at]).order(params[:order])
       @cart_columns = Cart.column_names
     end
     

@@ -73,7 +73,7 @@ class Admin::SeatgroupsController < ApplicationController
     
     def selected_seatgroups
       params[:order] ||= "id"
-      @seatgroups = Seatgroup.selector("id", session[:s_seatgroups_id]).includer("name", session[:s_seatgroups_name]).selector("ground_id", session[:s_seatgroups_ground_id]).includer("created_at", session[:s_seatgroups_created_at]).includer("updated_at", session[:s_seatgroups_updated_at]).selector("price", session[:s_seatgroups_price]).order(params[:order])
+      @seatgroups = Seatgroup.selector("id", session[:s_seatgroups_id]).includer("name", session[:s_seatgroups_name]).selector("ground_id", session[:s_seatgroups_ground_id]).created_selector(session[:s_seatgroups_created_at]).updated_selector(session[:s_seatgroups_updated_at]).selector("price", session[:s_seatgroups_price]).order(params[:order])
       @seatgroup_columns = Seatgroup.column_names
     end
 

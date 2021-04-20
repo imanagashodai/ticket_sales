@@ -68,7 +68,7 @@ class Admin::GroundsController < ApplicationController
     
     def selected_grounds
       params[:order] ||= "id"
-      @grounds = Ground.selector("id", session[:s_grounds_id]).includer("name", session[:s_grounds_name]).includer("created_at", session[:s_grounds_created_at]).includer("updated_at", session[:s_grounds_updated_at]).order(params[:order])
+      @grounds = Ground.selector("id", session[:s_grounds_id]).includer("name", session[:s_grounds_name]).created_selector(session[:s_grounds_created_at]).updated_selector(session[:s_grounds_updated_at]).order(params[:order])
       @ground_columns = Ground.column_names
     end
     

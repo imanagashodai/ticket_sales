@@ -72,7 +72,7 @@ class Admin::PurchasesController < ApplicationController
     
     def selected_purchases
       params[:order] ||= "id"
-      @purchases = Purchase.selector("id", session[:s_purchases_id]).includer("name", session[:s_purchases_ticket_id]).selector("ground_id", session[:s_purchases_user_id]).includer("created_at", session[:s_purchases_created_at]).includer("updated_at", session[:s_purchases_updated_at]).order(params[:order])
+      @purchases = Purchase.selector("id", session[:s_purchases_id]).includer("name", session[:s_purchases_ticket_id]).selector("ground_id", session[:s_purchases_user_id]).created_selector(session[:s_purchases_created_at]).updated_selector(session[:s_purchases_updated_at]).order(params[:order])
       @purchase_columns = Purchase.column_names
     end
 

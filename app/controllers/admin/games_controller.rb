@@ -78,7 +78,7 @@ class Admin::GamesController < ApplicationController
     
     def selected_games
       params[:order] ||= "id"
-      @games = Game.selector("id",  session[:s_games_id]).includer("datetime",  session[:s_games_date]).includer("datetime", "#{session[:s_games_time]}:00").selector("hometeam_id",  session[:s_games_hometeam_id]).selector("visitorteam_id",  session[:s_games_visitorteam_id]).selector("ground_id",  session[:s_games_ground_id]).includer("created_at",  session[:s_games_created_at]).includer("updated_at",  session[:s_games_updated_at]).order(params[:order])
+      @games = Game.selector("id",  session[:s_games_id]).includer("datetime",  session[:s_games_date]).includer("datetime", "#{session[:s_games_time]}:00").selector("hometeam_id",  session[:s_games_hometeam_id]).selector("visitorteam_id",  session[:s_games_visitorteam_id]).selector("ground_id",  session[:s_games_ground_id]).created_selector(session[:s_games_created_at]).updated_selector(session[:s_games_updated_at]).order(params[:order])
       @game_columns = Game.column_names
     end
     

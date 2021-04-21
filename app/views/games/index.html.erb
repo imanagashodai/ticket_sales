@@ -1,8 +1,28 @@
-<h1>チーム一覧</h1>
-<table>
-  <% Team.all.sort.each do |team| %>
-    <tr>
-      <td><%= link_to team.name, team_path(team.id) %></td>
-    </tr>
+<h1>試合一覧</h1>
+
+<% if @games.empty? %>
+  試合はありません
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>開始時刻</th>
+        <th>対戦カード</th>
+        <th>球場</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% @games.each do |game| %>
+        <tr>
+          <td><%= game.datetime.strftime("%Y年%m月%d日") %></td>
+          <td><%= game.datetime.strftime("%H:%M") %></td>
+          <td><%= game.hometeam.name %> ー <%= game.visitorteam.name %></td>
+          <td><%= game.ground.name %></td>
+          <td><%= link_to "購入画面へ進む", game_path(game.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
   <% end %>
-</table>

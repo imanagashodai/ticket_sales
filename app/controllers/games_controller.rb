@@ -1,6 +1,10 @@
 class GamesController < ApplicationController
   before_action :game_set_tickets
   
+  def index
+    @games = Game.order(:datetime)
+  end
+  
   def show
     @game = Game.find(params[:id])
   end

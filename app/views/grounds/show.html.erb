@@ -1,21 +1,26 @@
-<h1><%= Ground.find(params[:id]).name %></h1>
-<h2>対戦スケジュール</h2>
-<table>
-  <tr>
-    <th>日程</th>
-    <th>時刻</th>
-    <th>対戦相手</th>
-    <th>購入画面</th>
-  </tr>
-  
-  <% Game.where(homeid: params[:id]).each do |game| %>
-  <tr>
-    <td><%= game.datetime.to_s[5,7] %></td>
-    <td><%= game.datetime.to_s[12,4] %></td>
-    <td><%= Team.find(game.visitorid).name %></td>
-    <td><%= link_to "Go",  purchases_index_path(gameid: game.id) %></td>
-  </tr>
+<h1><%= Ground.find(params[:id]).name %>での試合</h1>
+
+<% if @games.empty? %>
+  試合はありません
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>開始時刻</th>
+        <th>対戦カード</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% @games.each do |game| %>
+        <tr>
+          <td><%= game.datetime.strftime("%Y年%m月%d日") %></td>
+          <td><%= game.datetime.strftime("%H:%M") %></td>
+          <td><%= game.hometeam.name %> ー <%= game.visitorteam.name %></td>
+          <td><%= link_to "購入画面へ進む", game_path(game.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
   <% end %>
-</table>
-<h2>会場</h2>
-<p><%= Ground.find(params[:id]).name %></p>

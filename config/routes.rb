@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   root "pages#index"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
-  resources :games, only: [:show, :create]
+  resources :games, only: [:index, :show, :create]
   resources :users, except: :index
   resources :carts, only: [:create, :destroy, :show]
   resources :teams, only: [:index, :show]
-  resources :grounds
+  resources :grounds, only: [:index, :show]
   get "login" => "sessions#new"
   post "login" => "sessions#create"
   delete "logout" => "sessions#destroy"

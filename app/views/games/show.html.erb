@@ -11,7 +11,7 @@
   </thead>
   
   <% sold_ticket_ids = Purchase.pluck(:ticket_id) %>
-  <% cart_ticket_ids = Cart.pluck(:ticket_id) %>
+  <% cart_ticket_ids = Cart.where(user_id: session[:user_id]).pluck(:ticket_id) %>
   
   <tbody>
     <% @game.seatgroups.each do |seatgroup| %>

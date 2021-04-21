@@ -2,18 +2,42 @@
 <% num = 0 %>
 
 <h1><%= current_user.name %>のカート</h1>
-<ul>
-  <% @cart.each do |cart| %>
-    <%
-    ticket = cart.ticket
-    seat = ticket.seat
-    seatgroup = seat.seatgroup
-    num += seatgroup.price
-    %>
-    <li><%= seatgroup.name %> <%= seat.name %> <%= seatgroup.price %>円</li>
-  <% end %>
-</ul>
 
-<h2>合計<%= num %>円</h2>
-<%= link_to "購入", carts_path, method: :post %>
-<%= link_to "削除", cart_path, method: :delete %>
+<% if @cart.empty? %>
+  ありません
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>試合</th>
+        <th>場所</th>
+        <th>席</th>
+        <th>値段</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% @cart.each do |cart| %>
+        <%
+        c_game = cart.ticket.game
+        c_game_datetime = c_game.datetime
+        c_seat = cart.ticket.seat
+        c_seatgroup = c_seat.seatgroup
+        num += c_seatgroup.price
+        %>
+        <tr>
+          <td><%= c_game_datetime.year %>年<%= c_game_datetime.month %>月<%= c_game_datetime.day %>日</td>
+          <td><%= c_game.hometeam.name %> 対 <%= c_game.visitorteam.name %></td>
+          <td><%= c_game.ground.name %></td>
+          <td><%= c_seatgroup.name %> <%= c_seat.name %></td>
+          <td><%= c_seatgroup.price %>円</td>
+          <td><%= link_to "購入取り消し", cart_path(key: cart.id), method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h2>合計<%= num %>円</h2>
+  <%= link_to "購入", carts_path, method: :post %>
+<% end %>

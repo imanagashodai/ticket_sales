@@ -13,8 +13,8 @@ class CartsController < ApplicationController
   end
   
   def destroy
-    if Cart.where(user_id: params[:id]).delete_all
-      redirect_to cart_path, success: "成功"
+    if Cart.find(params[:key]).delete
+      redirect_to cart_path, success: "削除"
     else
       flash.now[:danger] = "失敗"
       render :show

@@ -4,22 +4,28 @@
 
 <% games = Game.where(datetime: time.all_day) %>
 
-<ul style="list-style: none;">
-<% games.each do |game| %>
-<li class="tournament">
-  <div><%= game.hometeam.name %></div>
-  <div>対</div>
-  <div><%= game.visitorteam.name %></div>
-  <div><%= game.ground.name %></div>
-  <div><%= link_to "購入画面へ進む", game_path(game.id) %></div>
-</li>
+<% if games.empty? %>
+  ありません
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>試合</th>
+        <th>場所</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% games.each do |game| %>
+        <%
+        game_datetime = game.datetime
+        %>
+        <tr>
+          <td><%= game.hometeam.name %> 対 <%= game.visitorteam.name %></td>
+          <td><%= game.ground.name %></td>
+          <td><%= link_to "購入画面へ進む", game_path(game.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>
-</ul>
-
-
-<style>
-.tournament div:not(:last-child) {
-  float: left;
-  margin-right: 10px;
-}
-</style>

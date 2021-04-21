@@ -1,3 +1,5 @@
+<% @purchase = Purchase.where(user_id: session[:user_id]) %>
+
 <h1>ユーザー情報</h1>
 <table>
   <tr>
@@ -9,18 +11,42 @@
     <td><%= user.name %></td>
     <td><%= user.email %></td>
     <td><%= button_to "編集", edit_user_path, method: :get %></td>
-    <td><%= button_to "削除", user_path, method: :delete %></td>
+    <% if !current_user.admin %>
+      <td><%= button_to "アカウント削除", user_path, method: :delete %></td>
+    <% end %>
   </tr>
 </table>
 
 <h2>購入チケット一覧</h2>
-<table>
-  <tbody>
-    <% current_user.purchases.each do |purchase| %>
+
+<% if @purchase.empty? %>
+  ありません
+<% else %>
+  <table>
+    <thead>
       <tr>
-        <td><%= purchase.id %></td>
-        <td></td>
+        <th>日付</th>
+        <th>試合</th>
+        <th>場所</th>
+        <th>席</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    
+    <tbody>
+      <% @purchase.each do |cart| %>
+        <%
+        c_game = cart.ticket.game
+        c_game_datetime = c_game.datetime
+        c_seat = cart.ticket.seat
+        c_seatgroup = c_seat.seatgroup
+        %>
+        <tr>
+          <td><%= c_game_datetime.year %>年<%= c_game_datetime.month %>月<%= c_game_datetime.day %>日</td>
+          <td><%= c_game.hometeam.name %> 対 <%= c_game.visitorteam.name %></td>
+          <td><%= c_game.ground.name %></td>
+          <td><%= c_seatgroup.name %> <%= c_seat.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   root "pages#index"
-  get 'purchases/index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  delete "users/delete"
+  
   resources :games, only: [:show, :create]
-  resources :users, only: [:new, :create, :show, :edit]
-  resources :carts
+  resources :users, except: :index
+  resources :carts, only: [:create, :destroy, :show]
   resources :teams, only: [:index, :show]
   resources :grounds
   get "login" => "sessions#new"

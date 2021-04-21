@@ -1,17 +1,32 @@
-<h1>
-  <%= @game.hometeam.name %> 対 <%= @game.visitorteam.name %> <%= @game.ground.name %>
-</h1>
-<h2>チケット一覧</h2>
+<h1>購入画面</h1>
 
 <table>
   <thead>
-    <td>場所</td>
-    <td>値段</td>
-    <td>残り枚数</td>
+    <tr>
+      <th>日付</th>
+      <th>開始時刻</th>
+      <th>対戦カード</th>
+      <th>球場</th>
+    </tr>
   </thead>
   
-  <% sold_ticket_ids = Purchase.pluck(:ticket_id) %>
-  <% cart_ticket_ids = Cart.where(user_id: session[:user_id]).pluck(:ticket_id) %>
+  <tbody>
+    <tr>
+      <td><%= @game.datetime.strftime("%Y年%m月%d日") %></td>
+      <td><%= @game.datetime.strftime("%H:%M") %></td>
+      <td><%= @game.hometeam.name %> ー <%= @game.visitorteam.name %></td>
+      <td><%= @game.ground.name %></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>チケット一覧</h2>
+<table>
+  <thead>
+    <th>場所</th>
+    <th>値段</th>
+    <th>残り枚数</th>
+  </thead>
   
   <tbody>
     <% @game.seatgroups.each do |seatgroup| %>
@@ -19,9 +34,11 @@
         <tr>
           <td><%= seatgroup.name %></td>
           <td><%= seatgroup.price %>円</td>
-          <td><%=  ( unsold_ticket_ids = all_ticket_ids - sold_ticket_ids - cart_ticket_ids ).count %></td>
+          <td><%=  ( unsold_ticket_ids = all_ticket_ids - @sold_ticket_ids - @cart_ticket_ids ).count %></td>
           <% if unsold_ticket_ids.present? %>
-            <td><%= link_to "カートに入れる", games_path(game_id: @game.id, ticket_id: unsold_ticket_ids.sample), method: :post %></td>
+            <% if current_user %>
+              <td><%= link_to "カートに入れる", games_path(game_id: @game.id, ticket_id: unsold_ticket_ids.sample), method: :post %></td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>

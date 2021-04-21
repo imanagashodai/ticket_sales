@@ -1,0 +1,38 @@
+<% if purchases.empty? %>
+  ありません
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>開始時刻</th>
+        <th>対戦カード</th>
+        <th>球場</th>
+        <th>座席</th>
+        <th>値段</th>
+        <th>購入日時</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      
+    <tbody>
+      <% purchases.each do |purchase| %>
+        <%
+        p_game = purchase.ticket.game
+        p_seat = purchase.ticket.seat
+        p_seatgroup = p_seat.seatgroup
+        %>
+        <tr>
+          <td><%= p_game.datetime.strftime("%Y年%m月%d日") %></td>
+          <td><%= p_game.datetime.strftime("%H:%M") %></td>
+          <td><%= p_game.hometeam.name %> ー <%= p_game.visitorteam.name %></td>
+          <td><%= p_game.ground.name %></td>
+          <td><%= p_seatgroup.name %> <%= p_seat.name %></td>
+          <td><%= p_seatgroup.price %>円</td>
+          <td><%= purchase.created_at.strftime("%Y年%m月%d日 %H:%M") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

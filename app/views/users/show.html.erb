@@ -1,5 +1,3 @@
-<% @purchase = Purchase.where(user_id: session[:user_id]) %>
-
 <h1>ユーザー情報</h1>
 <table>
   <tr>
@@ -17,36 +15,8 @@
   </tr>
 </table>
 
-<h2>購入チケット一覧</h2>
+<h2>利用可能チケット</h2>
+<%= render "layouts/users_show", purchases: @future_purchase %>
 
-<% if @purchase.empty? %>
-  ありません
-<% else %>
-  <table>
-    <thead>
-      <tr>
-        <th>日付</th>
-        <th>試合</th>
-        <th>場所</th>
-        <th>席</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-      <% @purchase.each do |cart| %>
-        <%
-        c_game = cart.ticket.game
-        c_game_datetime = c_game.datetime
-        c_seat = cart.ticket.seat
-        c_seatgroup = c_seat.seatgroup
-        %>
-        <tr>
-          <td><%= c_game_datetime.year %>年<%= c_game_datetime.month %>月<%= c_game_datetime.day %>日</td>
-          <td><%= c_game.hometeam.name %> 対 <%= c_game.visitorteam.name %></td>
-          <td><%= c_game.ground.name %></td>
-          <td><%= c_seatgroup.name %> <%= c_seat.name %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+<h2>使用済みチケット</h2>
+<%= render "layouts/users_show", purchases: @post_purchase %>

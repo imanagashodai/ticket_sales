@@ -1,4 +1,14 @@
 class UsersController < ApplicationController
+  def edit
+    @user = User.find(session[:user_id])
+  end
+  
+  def show
+    user_purchases = Purchase.where(user_id: session[:user_id]).joins(ticket: :game).order("datetime")
+    @future_purchase = user_purchases.where(games: {datetime: Time.now.midnight..Float::INFINITY})
+    @post_purchase = user_purchases - @future_purchase
+  end
+  
   def new
     @user = User.new
   end
@@ -13,29 +23,22 @@ class UsersController < ApplicationController
     end
   end
   
-  def delete
-    @user = User.find(params[:key])
-    if @user.destroy
-      redirect_to users_path
-    else
-      render :index
-    end
-  end
-  
   def destroy
-    @user = User.find(params[:id])
-    if @user.destroy
-      redirect_to root_path
+    @user = User.find(session[:user_id])
+    if @user.delete
+      redirect_to root_path, info: "アカウント削除しました"
     else
+      flash.now[:danger] = "削除失敗"
       render :show
     end
   end
   
   def update
-    user = User.find(params[:id])
-    if user.update(user_params)
-      redirect_to user_path
+    @user = User.find(session[:user_id])
+    if @user.update(user_params)
+      redirect_to user_path, success: "アカウント更新しました"
     else
+      flash.now[:danger] = "更新失敗"
       render :edit
     end
   end

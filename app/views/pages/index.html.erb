@@ -1,27 +1,22 @@
-<% time = Time.now %>
+<h1>本日(<%= @time.month %>月<%= @time.day %>日)の試合</h1>
 
-<h1>本日(<%= time.month %>月<%= time.day %>日)の試合</h1>
-
-<% games = Game.where(datetime: time.all_day) %>
-
-<% if games.empty? %>
-  ありません
+<% if @games.empty? %>
+  本日の試合はありません
 <% else %>
   <table>
     <thead>
       <tr>
-        <th>試合</th>
-        <th>場所</th>
+        <th>開始時刻</th>
+        <th>対戦カード</th>
+        <th>球場</th>
       </tr>
     </thead>
     
     <tbody>
-      <% games.each do |game| %>
-        <%
-        game_datetime = game.datetime
-        %>
+      <% @games.each do |game| %>
         <tr>
-          <td><%= game.hometeam.name %> 対 <%= game.visitorteam.name %></td>
+          <td><%= game.datetime.strftime("%H:%M") %></td>
+          <td><%= game.hometeam.name %> ー <%= game.visitorteam.name %></td>
           <td><%= game.ground.name %></td>
           <td><%= link_to "購入画面へ進む", game_path(game.id) %></td>
         </tr>

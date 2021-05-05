@@ -1,24 +1,49 @@
-# README
+# TicketSales
+野球の試合のチケット購入サイト。選択したチケットをカートに入れて購入することは出来ますが、決済部分は未実装です。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## １．バージョン
+* Rails 5.2.4.5
+* ruby 2.6.3
+* 開発・テスト環境：MySQL 5.7.31
+* 本番環境：PostgreSQL 9.2.24
 
-Things you may want to cover:
+## ２．インストール
+```
+$ git clone https://github.com/imanagashodai/ticket_sales.git
+$ cd ticket_sales
+$ bundle install
+($ rails db:seed #初期テーブルデータ挿入可能)
+```
 
-* Ruby version
+## ３．機能
+### 一般ユーザー
+* ユーザー登録
+* ユーザーログイン
+* チケット購入
+* 試合一覧確認(球団、球場毎での確認可)
 
-* System dependencies
+### 管理人
+* 管理人画面閲覧権限保有
+* 悪質なユーザーをブロック(ログイン不能にする)
+* 各テーブルデータ新規登録、編集、削除
 
-* Configuration
+## ４．特徴
+* 見栄え、翻訳、テスト以外は殆どGemを使わずに実装
+* ユーザー登録失敗の際には失敗理由を表示
+* `$ rails db:seed`により初期テーブルデータ挿入可能。その際、以下の3人を登録
+  * 管理人(Eメール：admin@admin.admin、パスワード：adminadmin1)
+  * 一般ユーザー(Eメール：general@general.general、パスワード：general1)
+  * ブロックされたユーザー(Eメール：blocked@blocked.blocked、パスワード：blocked1) ※ブロックされているのでログインできません
+* チケット購入の際、条件を満たすチケットからランダムに1枚選ばれる。1つのチケットを複数ユーザーがカートに入れられるが、購入は1ユーザーのみ可
+* RSpecによる自動テスト
+  * モデルテスト(全てのモデル)
+  * システムテスト(ユーザー登録、ログイン)
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## ５．これからの実装
+* 見栄えの改善
+* 座席群が表記された球場全体図
+* 試合を新規登録するだけでチケットが発行されるシステム
+* Payjpを用いた決済処理
+* ユーザー登録した際のメール自動送信
+* 上記以外の自動テスト
+* 試合結果登録

@@ -22,3 +22,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+# TicketSales
+野球の試合のチケット購入サイト。選択したチケットをカートに入れ、購入することは出来ますが、決済部分は未実装です。
+

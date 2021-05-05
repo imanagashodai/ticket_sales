@@ -7,8 +7,8 @@ class Ticket < ApplicationRecord
   validate :ground_match
 
   def ground_match
-    if seat.seatgroup.ground_id != game.ground_id
-      errors.add(:valid, "グラウンドが共通でない")
+    if seat&.seatgroup&.ground_id != game&.ground_id
+      errors.add(:seat, "の球場が、試合の球場と異なります")
     end
   end
 end

@@ -18,7 +18,13 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to login_path, success: "ユーザー登録しました"
     else
-      flash.now[:danger] = "ユーザー登録失敗"
+      if @user.errors.present?
+        flash.now[:danger] = "登録失敗。"
+        @user.errors.full_messages.each do |message|
+          flash.now[:danger] += "#{message}。"
+        end
+      end
+      # flash.now[:danger] = "ユーザー登録失敗"
       render :new
     end
   end

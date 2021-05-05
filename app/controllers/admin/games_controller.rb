@@ -22,7 +22,8 @@ class Admin::GamesController < ApplicationController
     if @game.save
       redirect_to admin_games_path, success: "登録完了"
     else
-      flash.now[:danger] = "登録失敗"
+      # flash.now[:danger] = "登録失敗"
+      flash.now[:danger] = @game.errors.full_messages
       render :new
     end
   end

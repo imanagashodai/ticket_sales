@@ -11,7 +11,7 @@ class Game < ApplicationRecord
   
   def teams_same?
     if hometeam_id == visitorteam_id
-      errors.add(:valid, "同じチーム同士の対戦")
+      errors.add(:hometeam, "とビジター球団が同じです")
     end
   end
 end

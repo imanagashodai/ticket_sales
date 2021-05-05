@@ -12,6 +12,7 @@
 $ git clone https://github.com/imanagashodai/ticket_sales.git
 $ cd ticket_sales
 $ bundle install
+($ rails db:seed)
 ```
 
 ## ３．機能

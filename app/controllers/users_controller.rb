@@ -24,7 +24,6 @@ class UsersController < ApplicationController
           flash.now[:danger] += "#{message}。"
         end
       end
-      # flash.now[:danger] = "ユーザー登録失敗"
       render :new
     end
   end

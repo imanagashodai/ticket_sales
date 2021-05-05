@@ -1,98 +1,55 @@
 require 'rails_helper'
 
 RSpec.describe '一般ユーザー機能', type: :system do
-  let!(:generaluser) { FactoryBot.create(:generaluser) }
-  
   describe "新規ユーザー登録機能" do
+    let(:generaluser) { FactoryBot.build(:generaluser) }
+    
     before do 
       visit new_user_path
-      fill_in '名前', with: 'テスト1'
-      fill_in "Eメール ※｢～@～.～｣の形で", with: "example1@user.com"
-      fill_in 'パスワード ※「8~32文字」かつ「半角英字と数字の混合」', with: 'Example1'
-      fill_in 'パスワード(再入力)', with: 'Example1'
+      fill_in '名前', with: generaluser.name
+      fill_in "Eメール ※｢～@～.～｣の形で", with: generaluser.email
+      fill_in 'パスワード ※「8~32文字」かつ「半角英字と数字の混合」', with: generaluser.password
+      fill_in 'パスワード(再入力)', with: generaluser.password_confirmation
     end
     
-    context "ルール通りに入力した時" do
-      it '正常に登録され、ログイン画面へ遷移' do
-        click_button '登録'
-        expect(page).to have_selector 'h1', text: 'ログイン画面'
-        expect(page).to have_selector '.alert', text: 'ユーザー登録しました'
-      end
+    it '成功の場合、ログイン画面へ遷移' do
+      click_button '登録'
+      expect(current_path).to eq login_path
+      expect(page).to have_selector '.alert', text: 'ユーザー登録しました'
     end
     
-    context "ルール通りに入力しなかった時" do
-      shared_examples_for '登録失敗し、登録画面のままバリデーションが表示される。' do |fillin_with, val_text|
-        it { 
-          fill_in fillin_label, with: fillin_with
-          click_button '登録'
-          expect(page).to have_selector 'h1', text: 'ユーザー登録'
-          expect(page).to have_selector '.alert', text: '登録失敗。'
-          expect(page).to have_selector '.alert', text: val_text
-        }
-      end
-      
-      describe "名前" do
-        let(:fillin_label) { "名前" }
-        
-        context "空欄にした場合" do
-          it_behaves_like '登録失敗し、登録画面のままバリデーションが表示される。', "", "名前を入力してください。"
-        end
-      end
-      
-      describe "Eメール" do
-        let(:fillin_label) { "Eメール ※｢～@～.～｣の形で" }
-        
-        context "空欄にした場合" do
-          it_behaves_like '登録失敗し、登録画面のままバリデーションが表示される。', "", "Eメールを入力してください。"
-        end
-        
-        context "他ユーザーと重複した場合" do
-          it_behaves_like '登録失敗し、登録画面のままバリデーションが表示される。', FactoryBot.build(:generaluser).email, "Eメールはすでに存在します。"
-        end
-        
-        context "Eメールが｢～@～.～｣で書かれてない場合" do
-          it_behaves_like '登録失敗し、登録画面のままバリデーションが表示される。', "mistake", "Eメールは不正な値です。"
-        end
-      end
-      
-      describe "パスワード" do
-        shared_examples_for 'パスワードのバリデーションが表示される。' do |password, password_confirmation, val_text|
-          it { 
-            fill_in 'パスワード ※「8~32文字」かつ「半角英字と数字の混合」', with: password
-            fill_in 'パスワード(再入力)', with: password_confirmation
-            click_button '登録'
-            expect(page).to have_selector 'h1', text: 'ユーザー登録'
-            expect(page).to have_selector '.alert', text: '登録失敗。'
-            expect(page).to have_selector '.alert', text: val_text
-          }
-        end
-        
-        context "「8~32文字」「半角英字と数字の混合」のいずれかを満たさない場合" do
-          context "8文字未満" do
-            it_behaves_like 'パスワードのバリデーションが表示される。', "ssssss1", "ssssss1", "パスワードは不正な値です。"
-          end
-          
-          context "32文字より多い" do
-            it_behaves_like 'パスワードのバリデーションが表示される。', "ssssssssssssssssssssssssssssssss1", "ssssssssssssssssssssssssssssssss1", "パスワードは不正な値です。"
-          end
-          
-          context "半角英字のみ" do
-            it_behaves_like 'パスワードのバリデーションが表示される。', "ssssssss", "ssssssss", "パスワードは不正な値です。"
-          end
-          
-          context "数字のみ" do
-            it_behaves_like 'パスワードのバリデーションが表示される。', "12345678", "12345678", "パスワードは不正な値です。"
-          end
-          
-          context "半角英数字以外" do
-            it_behaves_like 'パスワードのバリデーションが表示される。', "a234567八", "a234567八", "パスワードは不正な値です。"
-          end
-        end
-        
-        context "パスワードとパスワード(再入力)が一致しない場合" do
-          it_behaves_like 'パスワードのバリデーションが表示される。', "1234567q", "1234567w", "パスワード(再入力)とパスワードの入力が一致しません。"
-        end
-      end
+    it "失敗の場合、登録画面のままバリデーションが表示。名前とEメールは値が残ったまま。" do
+      fill_in "パスワード(再入力)", with: ""
+      click_button '登録'
+      expect(current_path).to eq users_path
+      expect(page).to have_selector '.alert', text: '登録失敗。'
+      expect(page).to have_field 'user_name', with: generaluser.name
+      expect(page).to have_field 'user_email', with: generaluser.email
+    end
+  end
+  
+  describe "ログイン機能" do
+    let(:generaluser) { FactoryBot.create(:generaluser) }
+    
+    before do 
+      visit login_path
+      fill_in "Eメール", with: generaluser.email
+      fill_in 'パスワード', with: generaluser.password
+    end
+    
+    it '成功の場合、トップ画面へ遷移。管理人画面へのリンクは表示されない。' do
+      click_button 'ログイン'
+      expect(current_path).to eq root_path
+      expect(page).to have_selector '.alert', text: 'ログインしました'
+      expect(page).not_to have_link '管理人画面'
+    end
+    
+    it "失敗の場合、ログイン画面のままバリデーションが表示。Eメールは値が残ったまま。" do
+      fill_in "パスワード", with: ""
+      click_button 'ログイン'
+      expect(current_path).to eq login_path
+      expect(page).to have_selector '.alert', text: 'ログインに失敗しました'
+      expect(page).to have_field 'email', with: generaluser.email
     end
   end
 end

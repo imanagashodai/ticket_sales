@@ -1,0 +1,4 @@
+id,name,email,password,password_confirmation,admin
+0,管理人,admin@admin.admin,adminadmin1,adminadmin1,TRUE
+1,一般ユーザー,general@general.general,general1,general1,FALSE
+2,ブロックされたユーザー,blocked@blocked.blocked,blocked1,blocked1,FALSE

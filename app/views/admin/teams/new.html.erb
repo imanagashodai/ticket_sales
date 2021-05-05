@@ -3,7 +3,7 @@
 <%= render "layouts/admin/search/team" %>
 
 <ul id="anchors">
-  <li><%= link_to "リセット", admin_teams_reset_path %></li>
+  <li><%= link_to "検索リセット", admin_teams_reset_path %></li>
 </ul>
 
 <%= form_with model: @team, url: admin_teams_path, local: true do |f| %>

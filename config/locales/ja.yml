@@ -27,6 +27,7 @@ ja:
         password_confirmation: パスワード(再入力)
         created_at: 登録日時
         updated_at: 更新日時
+        admin: 管理人
       ground:
         id: ID
         name: 球場名

@@ -3,7 +3,7 @@
 <%= render "layouts/admin/search/cart" %>
 
 <ul id="anchors">
-  <li><%= link_to "リセット", admin_carts_reset_path %></li>
+  <li><%= link_to "検索リセット", admin_carts_reset_path %></li>
 </ul>
 
 <%= form_with model: @cart, url: admin_carts_path, local: true do |f| %>

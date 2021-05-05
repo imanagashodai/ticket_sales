@@ -12,7 +12,7 @@
 $ git clone https://github.com/imanagashodai/ticket_sales.git
 $ cd ticket_sales
 $ bundle install
-($ rails db:seed)
+($ rails db:seed #初期テーブルデータ挿入可能)
 ```
 
 ## ３．機能

@@ -8,18 +8,6 @@
 
 require "csv"
 
-User.delete_all
-Ground.delete_all
-Blockeduser.delete_all
-Seatgroup.delete_all
-Team.delete_all
-Seat.delete_all
-Game.delete_all
-Ticket.delete_all
-Cart.delete_all
-Purchase.delete_all
-
-
 CSV.foreach('db/table_user.csv', headers: true) do |row|
   User.create(id: row[0], name: row[1], email: row[2], password: row[3], password_confirmation: row[4], admin: row[5])
 end

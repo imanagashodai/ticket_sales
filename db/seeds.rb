@@ -33,6 +33,7 @@ require "csv"
 # CSV.foreach('db/table_seat.csv', headers: true) do |row|
 #   Seat.create(id: row[0], seatgroup_id: row[1], name: row[2])
 # end
+ActiveRecord::Base.connection.execute("SELECT setval('seats_id_seq', coalesce((SELECT MAX(id)+1 FROM seats), 1), false)") 
 
 # CSV.foreach('db/table_game.csv', headers: true) do |row|
 #   Game.create(id: row[0], datetime: "#{row[1]}-#{row[2]}-#{row[3]} #{row[4]}:#{row[5]}", hometeam_id: row[6], visitorteam_id: row[7], ground_id: row[8])
@@ -49,4 +50,4 @@ require "csv"
 # CSV.foreach('db/table_purchase.csv', headers: true) do |row|
 #   Purchase.create(id: row[0], ticket_id: row[1], user_id: row[2])
 # end
-ActiveRecord::Base.connection.execute("SELECT setval('purchases_id_seq', coalesce((SELECT MAX(id)+1 FROM purchases), 1), false)") 
+# ActiveRecord::Base.connection.execute("SELECT setval('purchases_id_seq', coalesce((SELECT MAX(id)+1 FROM purchases), 1), false)") 

@@ -12,7 +12,7 @@
 $ git clone https://github.com/imanagashodai/ticket_sales.git
 $ cd ticket_sales
 $ bundle install
-($ rails db:seed #初期テーブルデータ挿入可能)
+($ rails db:seed #初期テーブルデータ挿入可能。ただしPostgreSQL使用時以外はseeds.rb内で示す箇所をコメントアウト)
 ```
 
 ## ３．テスト実施方法

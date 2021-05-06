@@ -8,18 +8,6 @@
 
 require "csv"
 
-User.delete_all
-Ground.delete_all
-Blockeduser.delete_all
-Seatgroup.delete_all
-Team.delete_all
-Seat.delete_all
-Game.delete_all
-Ticket.delete_all
-Cart.delete_all
-Purchase.delete_all
-
-
 CSV.foreach('db/table_user.csv', headers: true) do |row|
   User.create(id: row[0], name: row[1], email: row[2], password: row[3], password_confirmation: row[4], admin: row[5])
 end
@@ -60,7 +48,7 @@ CSV.foreach('db/table_purchase.csv', headers: true) do |row|
   Purchase.create(id: row[0], ticket_id: row[1], user_id: row[2])
 end
 
-# ↓↓PostgreSQL使用時のみ下記も実施
+# ↓↓PostgreSQL使用時以外は下記をコメントアウト
 # ------------
 ActiveRecord::Base.connection.execute("SELECT setval('users_id_seq', coalesce((SELECT MAX(id)+1 FROM users), 1), false)") 
 ActiveRecord::Base.connection.execute("SELECT setval('grounds_id_seq', coalesce((SELECT MAX(id)+1 FROM grounds), 1), false)") 
